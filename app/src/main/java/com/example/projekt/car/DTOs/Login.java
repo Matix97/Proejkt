@@ -1,4 +1,4 @@
-package com.example.projekt.car.LoginAndRegister;
+package com.example.projekt.car.DTOs;
 
 public class Login {
     private String user;

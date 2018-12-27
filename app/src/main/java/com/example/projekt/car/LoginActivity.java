@@ -7,13 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.projekt.car.DTOs.BearerToken;
 import com.example.projekt.car.Exceptions.PersonDoesNotExist;
-import com.example.projekt.car.LoginAndRegister.Login;
-import com.example.projekt.car.LoginAndRegister.Register;
-import com.example.projekt.car.LoginAndRegister.UserService;
-import com.example.projekt.car.data.PeopleDataBase;
+import com.example.projekt.car.DTOs.Login;
+import com.example.projekt.car.DTOs.Register;
+import com.example.projekt.car.Services.ServiceGenerator;
+import com.example.projekt.car.Services.UserService;
 import com.example.projekt.car.data.Person;
 
+import okhttp3.Credentials;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,18 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends Activity {
     Button b1, b2;
     EditText ed1, ed2;
-    //some magic....
-    Retrofit.Builder builder=new Retrofit.Builder()
-                .baseUrl("http://104.214.72.121:8080/")
-            .addConverterFactory(GsonConverterFactory.create());
-    Retrofit retrofit=builder.build();
-    UserService userService=retrofit.create(UserService.class);
-//end of magic...(currently)
-    private String token;
+
+    private UserService userService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_z_internet);
+        this.userService = ServiceGenerator.createService(UserService.class);
 
         b1 = findViewById(R.id.button);
         ed1 = findViewById(R.id.editText);
@@ -59,8 +56,7 @@ private void tryRegister(){
         public void onResponse(Call<Person> call, Response<Person> response) {
             if(response.isSuccessful())
             {
-                token=response.body().getToken();
-                Toast.makeText(LoginActivity.this,token,Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,"Registration succeeded",Toast.LENGTH_SHORT).show();
 
             }
             else
@@ -75,17 +71,16 @@ private void tryRegister(){
 }
     private void tryLogin() throws PersonDoesNotExist {
 
-
-
         Login login=new Login(ed1.getText().toString(),ed2.getText().toString());
-        Call<Person> call= userService.login(login);
-        call.enqueue(new Callback<Person>() {
+
+        Call<BearerToken> call = userService.login(Credentials.basic(ed1.getText().toString(), ed2.getText().toString()));
+        call.enqueue(new Callback<BearerToken>() {
             @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
+            public void onResponse(Call<BearerToken> call, Response<BearerToken> response) {
                 if(response.isSuccessful())
                 {
-                    token=response.body().getToken();
-                    Toast.makeText(LoginActivity.this,token,Toast.LENGTH_SHORT).show();
+                    ServiceGenerator.bearerToken = response.body().getString();
+                    Toast.makeText(LoginActivity.this,"Login succeeded",Toast.LENGTH_SHORT).show();
 
                 }
                 else
@@ -93,7 +88,7 @@ private void tryRegister(){
             }
 
             @Override
-            public void onFailure(Call<Person> call, Throwable t) {
+            public void onFailure(Call<BearerToken> call, Throwable t) {
                     Toast.makeText(LoginActivity.this,"error",Toast.LENGTH_SHORT).show();
             }
         });

@@ -1,4 +1,4 @@
-package com.example.projekt.car.LoginAndRegister;
+package com.example.projekt.car.DTOs;
 
 import android.annotation.SuppressLint;
 import android.os.StrictMode;
