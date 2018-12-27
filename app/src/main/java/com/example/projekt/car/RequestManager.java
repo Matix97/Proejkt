@@ -1,131 +1,92 @@
 package com.example.projekt.car;
 
-import android.accounts.AccountAuthenticatorActivity;
-import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
-import android.app.DownloadManager;
-import android.os.StrictMode;
-import android.widget.TextView;
 
-import com.google.android.gms.common.api.Response;
-/*więc będzie coś typu var token = request.authenticateWith("somelogin","somepasword")*/
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.DataOutputStream;
+import android.util.Base64;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.projekt.car.Exceptions.PersonDoesNotExist;
+import com.example.projekt.car.LoginAndRegister.Login;
+import com.example.projekt.car.LoginAndRegister.Register;
+import com.example.projekt.car.LoginAndRegister.User;
+import com.example.projekt.car.LoginAndRegister.UserService;
+import com.example.projekt.car.data.Person;
+//import com.google.android.gms.common.api.Response;
+
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
-import javax.net.ssl.HttpsURLConnection;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Response;
+import retrofit2.http.Header;
+/*więc będzie coś typu var token = request.authenticateWith("somelogin","somepasword")*/
 
-public class    RequestManager extends AccountAuthenticatorActivity {
-    private String token;
-    private HttpsURLConnection httpsURLConnection;//http://104.214.72.121:8080/cars
-    RequestManager() {
-       // DownloadManager.Request
-       // token=
+public class    RequestManager  {
 
-            try {
-              //  HttpClientExample hce = new HttpClientExample();
-                String body = post("http://104.214.72.121:8080/cars", "data=test data");
-                System.out.println(body);
-            } catch(IOException ioe) {
-                ioe.printStackTrace();
+    private UserService userService;
+    private Retrofit retrofit;
+
+
+    RequestManager(){
+        Retrofit.Builder builder=new Retrofit.Builder()
+                .baseUrl("http://104.214.72.121:8080/")
+                .addConverterFactory(GsonConverterFactory.create());
+        retrofit=builder.build();
+        userService=retrofit.create(UserService.class);
+    }
+    public Boolean register(String name, String email, String password, String verifyPassword){
+        Register register=new Register(name,email,password,verifyPassword);
+        Call<Person> call= userService.register(register);
+        final Boolean[] ifRegister = {false};
+        call.enqueue(new Callback<Person>() {
+            @Override
+            public void onResponse(Call<Person> call, Response<Person> response) {
+                if(response.isSuccessful())
+                {
+
+                    ifRegister[0] =true;
+
+                }
+                else{
+
+                    ifRegister[0]=false;
+                }
             }
 
-    }
+            @Override
+            public void onFailure(Call<Person> call, Throwable t) {
 
-    public String post(String postUrl, String data) throws IOException {
-        URL url = new URL(postUrl);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-
-        con.setDoOutput(true);
-
-        this.sendData(con, data);
-
-        return this.read(con.getInputStream());
-    }
-
-    protected void sendData(HttpURLConnection con, String data) throws IOException {
-        DataOutputStream wr = null;
-        try {
-            wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(data);
-            wr.flush();
-            wr.close();
-        } catch(IOException exception) {
-            throw exception;
-        } finally {
-            this.closeQuietly(wr);
-        }
-    }
-
-    private String read(InputStream is) throws IOException {
-        BufferedReader in = null;
-        String inputLine;
-        StringBuilder body;
-        try {
-            in = new BufferedReader(new InputStreamReader(is));
-
-            body = new StringBuilder();
-
-            while ((inputLine = in.readLine()) != null) {
-                body.append(inputLine);
+                ifRegister[0]=false;
             }
-            in.close();
-
-            return body.toString();
-        } catch(IOException ioe) {
-            throw ioe;
-        } finally {
-            this.closeQuietly(in);
-        }
+        });
+        return ifRegister[0];
     }
+    public String login(String email, String password)  {
 
-    protected void closeQuietly(Closeable closeable) {
+
+        final String[] token = {""};
+
+        String autHeader="Basic "+Base64.encodeToString((email+":"+password).getBytes(), Base64.NO_WRAP);
+        Log.i("tag",autHeader);
+        Call<String> call=userService.getUser(autHeader);
         try {
-            if( closeable != null ) {
-                closeable.close();
+            Response<String> response=call.execute();
+            if(response.isSuccessful()){
+                token[0]=response.body();
+
             }
-        } catch(IOException ex) {
+        } catch (IOException e) {
+            e.printStackTrace();
 
         }
+
+return token[0];
+
     }
-    @SuppressLint("NewApi")
-    public Connection CONN() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Connection conn = null;
-        String ConnURL;
-        try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            ConnURL =String.format("jdbc:jtds:sqlserver://adamserver2137.database.windows.net:1433/Users;" +
-                    "user=adamserver2137@adamserver2137;password=#zbigniewstonoga1;encrypt=true;" +
-                    "trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
 
-            conn = DriverManager.getConnection(ConnURL);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //     textView.setText("chuj "+e.getMessage().toString());
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            // textView.setText("chuj 2  "+e.getMessage());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            //textView.setText(" c h uj 434 "+e.getMessage());
-        }
-        //Toast.makeText(getBaseContext(),""+wiad,Toast.LENGTH_LONG).show();
-        return conn;
-    }
 
 }

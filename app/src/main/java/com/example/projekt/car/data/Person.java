@@ -1,5 +1,7 @@
 package com.example.projekt.car.data;
 
+import com.google.android.gms.common.api.Result;
+
 import java.io.Serializable;
 
 //User info: login, email, password, id, lastUsedCar

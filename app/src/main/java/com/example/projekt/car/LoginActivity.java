@@ -42,15 +42,29 @@ public class LoginActivity extends Activity {
         b2 = findViewById(R.id.button2);
 
         b1.setOnClickListener(v -> {
-            try {
+            RequestManager requestManager=new RequestManager();
+            String tokenFromRequest=requestManager.login(ed1.getText().toString(),ed2.getText().toString());
+            if( !tokenFromRequest.equals("")){
+               Toast.makeText(LoginActivity.this,"Successful login "+tokenFromRequest,Toast.LENGTH_SHORT).show();
+           }
+           else
+               Toast.makeText(LoginActivity.this,"Faulty login",Toast.LENGTH_SHORT).show();
+          /*  try {
                 tryLogin();
             } catch (PersonDoesNotExist personDoesNotExist) {
                 personDoesNotExist.printStackTrace();
-            }
+            }*/
         });
-        b2.setOnClickListener(v -> tryRegister());
+        b2.setOnClickListener(v ->{ RequestManager requestManager=new RequestManager();
+        if(requestManager.register(ed1.getText().toString(),ed1.getText().toString(),ed2.getText().toString(),ed2.getText().toString()))
+        {
+            Toast.makeText(LoginActivity.this,"Successful register",Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(LoginActivity.this,"Faulty register",Toast.LENGTH_SHORT).show();
+        /*tryRegister()*/ });
     }
-private void tryRegister(){
+/*private void tryRegister(){
     Register register=new Register(ed1.getText().toString(),ed1.getText().toString(),ed2.getText().toString(),ed2.getText().toString());
     Call<Person> call= userService.register(register);
 
@@ -72,8 +86,8 @@ private void tryRegister(){
             Toast.makeText(LoginActivity.this,"error",Toast.LENGTH_SHORT).show();
         }
     });
-}
-    private void tryLogin() throws PersonDoesNotExist {
+}*/
+   /* private void tryLogin() throws PersonDoesNotExist {
 
 
 
@@ -98,7 +112,7 @@ private void tryRegister(){
             }
         });
 
-        /*Boolean loginOK = false;
+        *//*Boolean loginOK = false;
 
         PeopleDataBase peopleDataBase = new PeopleDataBase();
         for (int i = 0; i < peopleDataBase.size(); i++) {
@@ -116,9 +130,9 @@ private void tryRegister(){
             Toast toast = Toast.makeText(getApplicationContext(), "You haven't account or password is incorrect", Toast.LENGTH_LONG);
             toast.show();
         }
-*/
+*//*
 
-    }
+    }*/
 
     private void newActivity() {
         Intent intent = new Intent(this, MainActivity.class);
