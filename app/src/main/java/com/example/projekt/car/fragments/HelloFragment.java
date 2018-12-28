@@ -11,11 +11,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.projekt.car.ChoseCar;
+import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.Exceptions.PersonDoesNotExist;
+import com.example.projekt.car.MainActivity;
 import com.example.projekt.car.R;
+import com.example.projekt.car.Services.CarService;
+import com.example.projekt.car.Services.ServiceGenerator;
 import com.example.projekt.car.data.PeopleDataBase;
 import com.example.projekt.car.data.Person;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HelloFragment extends Fragment implements View.OnClickListener {
@@ -36,7 +48,7 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
         } catch (PersonDoesNotExist personDoesNotExist) {
             personDoesNotExist.printStackTrace();
         }
-        textView.setText("Welcome "+person.getFirstName());
+       // textView.setText("Welcome "+person.getFirstName());
         this.view=view;
         return view;
     }
@@ -57,9 +69,26 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
-    @Override
+    @Override//todo Testing get cars-- working correctly
     public void onClick(View v) {
-       newActivity();
+        CarService carService =ServiceGenerator.createAuthorizedService(CarService.class);
+        Call<List<Cars>> call=carService.getCars();
+        call.enqueue(new Callback<List<Cars>>() {
+            @Override
+            public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getActivity(),response.body().get(0).getModel(),Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(getActivity(),"Error in GET cars ",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Cars>> call, Throwable t) {
+                Toast.makeText(getActivity(),"FAILURE Error in GET cars ",Toast.LENGTH_SHORT).show();
+            }
+        });
+        newActivity();
     }
     private void newActivity() {
         Intent intent = new Intent(getActivity(), ChoseCar.class);
