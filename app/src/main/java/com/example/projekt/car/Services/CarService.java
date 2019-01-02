@@ -21,8 +21,8 @@ public interface CarService {
     @POST("cars/takings")
     Call<ResponseBody> takeCar(@Body TakeCar takeCar);
     @POST("fuelings")
-    void fuel(@Body Fuel fuel);
+    Call<ResponseBody> fuel(@Body Fuel fuel);
     @POST("faults")
-    void reportFault(@Body Fault fault );
+    Call<ResponseBody> reportFault(@Body Fault fault );
 
 }
