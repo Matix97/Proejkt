@@ -11,6 +11,29 @@ public class Cars {
     private boolean isTaken;
     private int id;
 
+    public Cars(String model, int faultID, String registrationNumber, boolean isOK, double fuelAmount, boolean isTaken, int id) {
+        this.model = model;
+        this.faultID = faultID;
+        this.registrationNumber = registrationNumber;
+        this.isOK = isOK;
+        this.fuelAmount = fuelAmount;
+        this.isTaken = isTaken;
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Cars{" +
+                "model='" + model + '\'' +
+                ", faultID=" + faultID +
+                ", registrationNumber='" + registrationNumber + '\'' +
+                ", isOK=" + isOK +
+                ", fuelAmount=" + fuelAmount +
+                ", isTaken=" + isTaken +
+                ", id=" + id +
+                '}';
+    }
+
     public String getModel() {
         return model;
     }

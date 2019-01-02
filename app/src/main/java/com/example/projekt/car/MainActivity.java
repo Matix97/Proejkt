@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             return 3;
         }
     }
-    private class WebServiceHandler extends AsyncTask<Void, Void, List<Cars>> {
+  /*  private class WebServiceHandler extends AsyncTask<Void, Void, List<Cars>> {
 
         // okienko dialogowe, które każe użytkownikowi czekać
         private ProgressDialog dialog = new ProgressDialog(MainActivity.this);
@@ -247,5 +247,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return stringBuilder.toString();
-    }
+    }*/
 }

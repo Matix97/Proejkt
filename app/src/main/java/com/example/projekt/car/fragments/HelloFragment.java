@@ -13,10 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.projekt.car.ChoseCar;
 import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.Exceptions.PersonDoesNotExist;
-import com.example.projekt.car.MainActivity;
+import com.example.projekt.car.MyListActivity;
 import com.example.projekt.car.R;
 import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
@@ -91,10 +90,10 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
         newActivity();
     }
     private void newActivity() {
-        Intent intent = new Intent(getActivity(), ChoseCar.class);
-        Bundle bundle=new Bundle();
-        bundle.putString("idCar", "Audi");
-        intent.putExtras(bundle);
+        Intent intent = new Intent(getActivity(), MyListActivity.class);
+      //  Bundle bundle=new Bundle();
+       // bundle.putString("idCar", "Audi");
+      //  intent.putExtras(bundle);
         startActivity(intent);
     }
 }
