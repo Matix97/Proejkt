@@ -7,6 +7,14 @@ public class TakeCar {
     private double latitude;
     private long timestamp;
 
+    public TakeCar(int id, boolean isTaken, double longitude, double latitude, long timestamp) {
+        this.id = id;
+        this.isTaken = isTaken;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.timestamp = timestamp;
+    }
+
     public double getLongitude() {
         return longitude;
     }

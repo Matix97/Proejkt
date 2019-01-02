@@ -42,6 +42,11 @@ public class MyListActivity extends ListActivity {
                 if(response.isSuccessful()){
                     Toast.makeText(MyListActivity.this,response.body().get(0).getModel(),Toast.LENGTH_SHORT).show();
                     data=response.body();
+                    //deleting broken or unavailable cars
+                    /*for(Cars c:data){
+                        if(!c.isOK() || c.isTaken())
+                            data.
+                    }*/
                     CarArturAdapter arturAdapter=new CarArturAdapter(MyListActivity.this,R.layout.cars_adapter,data);
                    // listView.setAdapter(arturAdapter);
                     setListAdapter(arturAdapter);
