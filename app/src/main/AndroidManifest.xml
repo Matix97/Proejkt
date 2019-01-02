@@ -36,6 +36,9 @@
         <activity
             android:name=".ChoseCar"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".RentedCarActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <!--<activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>-->

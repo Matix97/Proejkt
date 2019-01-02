@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/modelText"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/model" />
+<TextView
+    android:id="@+id/modelText"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginStart="31dp"
+    android:layout_marginTop="20dp"
+    android:text="@string/model" />
 
     <TextView
         android:id="@+id/registrationText"
-        android:layout_width="132dp"
+        android:layout_width="199dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/modelText"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
         android:text="@string/registration" />
 
-    <TextView
-        android:id="@+id/fuelText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/registrationText"
-        android:layout_alignEnd="@+id/modelText"
-        android:text="@string/fuel" />
+<TextView
+    android:id="@+id/fuelText"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@+id/registrationText"
+    android:layout_alignEnd="@+id/modelText"
+    android:text="@string/fuel" />
 </RelativeLayout>

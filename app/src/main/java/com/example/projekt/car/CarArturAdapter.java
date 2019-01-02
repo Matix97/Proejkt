@@ -68,7 +68,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
 
 
         modelText.setText("" + car.getModel());
-        registrationText.setText("Fuel:" + car.getRegistrationNumber());
+        registrationText.setText("Registration: " + car.getRegistrationNumber());
         fuelText.setText("Fuel: " + car.getFuelAmount());
 
 
@@ -129,6 +129,8 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
                Toast.makeText(getContext(), "Failure 2", Toast.LENGTH_LONG).show();
            }
        });
+       Intent intent=new Intent(getContext(),RentedCarActivity.class);
+       context.startActivity(intent);
 
 
     }
