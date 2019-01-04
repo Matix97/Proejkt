@@ -20,10 +20,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 class WebServiceHandler extends AsyncTask<Void, Void, List<Cars>> {
 
     // okienko dialogowe, które każe użytkownikowi czekać
-   // private ProgressDialog dialog = new ProgressDialog();
+    // private ProgressDialog dialog = new ProgressDialog();
 
 
     // metoda wykonywana jest zaraz przed główną operacją (doInBackground())
@@ -31,8 +32,8 @@ class WebServiceHandler extends AsyncTask<Void, Void, List<Cars>> {
     @Override
     protected void onPreExecute() {
         // wyświetlamy okienko dialogowe każące czekać
-      //  dialog.setMessage("Czekaj...");
-       // dialog.show();
+        //  dialog.setMessage("Czekaj...");
+        // dialog.show();
     }
 
     // główna operacja, która wykona się w osobnym wątku
@@ -40,22 +41,21 @@ class WebServiceHandler extends AsyncTask<Void, Void, List<Cars>> {
     @Override
     protected List<Cars> doInBackground(Void... voids) {
 
-        CarService carService =ServiceGenerator.createAuthorizedService(CarService.class);
-        Call<List<Cars>> call=carService.getCars();
+        CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
+        Call<List<Cars>> call = carService.getCars();
         call.enqueue(new Callback<List<Cars>>() {
             @Override
             public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
-                if(response.isSuccessful()){
-                   // Toast.makeText(,response.body().get(0).getModel(),Toast.LENGTH_SHORT).show();
-                }
-                else {
+                if (response.isSuccessful()) {
+                    // Toast.makeText(,response.body().get(0).getModel(),Toast.LENGTH_SHORT).show();
+                } else {
                     //   Toast.makeText(MainActivity.this,"Error in GET cars ",Toast.LENGTH_SHORT).show();
                 }
-                }
+            }
 
             @Override
             public void onFailure(Call<List<Cars>> call, Throwable t) {
-               // Toast.makeText(MainActivity.this,"FAILURE Error in GET cars ",Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this,"FAILURE Error in GET cars ",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -69,7 +69,7 @@ class WebServiceHandler extends AsyncTask<Void, Void, List<Cars>> {
     protected void onPostExecute(List<Cars> result) {
 
         // chowamy okno dialogowe
-      //  dialog.dismiss();
+        //  dialog.dismiss();
 
         try {
             // reprezentacja obiektu JSON w Javie

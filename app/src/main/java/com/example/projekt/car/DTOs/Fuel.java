@@ -5,6 +5,12 @@ public class Fuel {
     private double amount;
     private long date;
 
+    public Fuel(int carID, double amount, long date) {
+        this.carID = carID;
+        this.amount = amount;
+        this.date = date;
+    }
+
     public int getCarID() {
         return carID;
     }

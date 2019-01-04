@@ -31,31 +31,32 @@ import retrofit2.Response;
 
 public class HelloFragment extends Fragment implements View.OnClickListener {
     private View view;
-    private  Button nfc;
+    private Button nfc;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.hello_fragment, container, false);
 
-        ImageView imageView=view.findViewById(R.id.imageView2);
+        ImageView imageView = view.findViewById(R.id.imageView2);
         imageView.setImageResource(R.drawable.sample_face);
 
-        TextView textView=view.findViewById(R.id.textView);
-        PeopleDataBase peopleDataBase=new PeopleDataBase();
-        Person person=null;
+       /* TextView textView = view.findViewById(R.id.textView);
+        PeopleDataBase peopleDataBase = new PeopleDataBase();
+        Person person = null;
         try {
-           person= peopleDataBase.getPerson((String)getArguments().get("dane"));
+            person = peopleDataBase.getPerson((String) getArguments().get("dane"));
         } catch (PersonDoesNotExist personDoesNotExist) {
             personDoesNotExist.printStackTrace();
         }
-       // textView.setText("Welcome "+person.getFirstName());
-        this.view=view;
+        // textView.setText("Welcome "+person.getFirstName());*/
+        this.view = view;
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        nfc= view.findViewById(R.id.nfcButton);
+        nfc = view.findViewById(R.id.nfcButton);
         nfc.setOnClickListener(this::onClick);
 
     }
@@ -70,7 +71,7 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
 
     @Override//todo Testing get cars-- working correctly
     public void onClick(View v) {
-        CarService carService =ServiceGenerator.createAuthorizedService(CarService.class);
+/*        CarService carService =ServiceGenerator.createAuthorizedService(CarService.class);
         Call<List<Cars>> call=carService.getCars();
         call.enqueue(new Callback<List<Cars>>() {
             @Override
@@ -86,14 +87,17 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
             public void onFailure(Call<List<Cars>> call, Throwable t) {
                 Toast.makeText(getActivity(),"FAILURE Error in GET cars ",Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         newActivity();
     }
+
+
+
     private void newActivity() {
         Intent intent = new Intent(getActivity(), MyListActivity.class);
-      //  Bundle bundle=new Bundle();
-       // bundle.putString("idCar", "Audi");
-      //  intent.putExtras(bundle);
+        //  Bundle bundle=new Bundle();
+        // bundle.putString("idCar", "Audi");
+        //  intent.putExtras(bundle);
         startActivity(intent);
     }
 }

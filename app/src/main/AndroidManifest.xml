@@ -32,13 +32,24 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".MyListActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
+        </activity>
         <activity
             android:name=".ChoseCar"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".RentedCarActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+           <!-- <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>-->
+
+        </activity>
         <!--<activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>-->

@@ -26,7 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends Activity {
     Button b1, b2;
     EditText ed1, ed2;
-    private String TAG="Tag: ";
+    private String TAG = "Tag: ";
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -81,7 +82,9 @@ public class LoginActivity extends Activity {
         super.onRestoreInstanceState(savedInstanceState);
         Log.i(TAG, "onRestoreInstanceState");
     }
+
     private UserService userService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,50 +105,48 @@ public class LoginActivity extends Activity {
         });
         b2.setOnClickListener(v -> tryRegister());
     }
-private void tryRegister(){
-    Register register=new Register(ed1.getText().toString(),ed1.getText().toString(),ed2.getText().toString(),ed2.getText().toString());
-    Call<Person> call= userService.register(register);
 
-    call.enqueue(new Callback<Person>() {
-        @Override
-        public void onResponse(Call<Person> call, Response<Person> response) {
-            if(response.isSuccessful())
-            {
-                Toast.makeText(LoginActivity.this,"Registration succeeded",Toast.LENGTH_SHORT).show();
+    private void tryRegister() {
+        Register register = new Register(ed1.getText().toString(), ed1.getText().toString(), ed2.getText().toString(), ed2.getText().toString());
+        Call<Person> call = userService.register(register);
 
+        call.enqueue(new Callback<Person>() {
+            @Override
+            public void onResponse(Call<Person> call, Response<Person> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Registration succeeded", Toast.LENGTH_SHORT).show();
+
+                } else
+                    Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
-            else
-                Toast.makeText(LoginActivity.this,"error",Toast.LENGTH_SHORT).show();
-        }
 
-        @Override
-        public void onFailure(Call<Person> call, Throwable t) {
-            Toast.makeText(LoginActivity.this,"error",Toast.LENGTH_SHORT).show();
-        }
-    });
-}
+            @Override
+            public void onFailure(Call<Person> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void tryLogin() throws PersonDoesNotExist {
 
-        Login login=new Login(ed1.getText().toString(),ed2.getText().toString());
+        Login login = new Login(ed1.getText().toString(), ed2.getText().toString());
 
         Call<BearerToken> call = userService.login(Credentials.basic(ed1.getText().toString(), ed2.getText().toString()));
         call.enqueue(new Callback<BearerToken>() {
             @Override
             public void onResponse(Call<BearerToken> call, Response<BearerToken> response) {
-                if(response.isSuccessful())
-                {
+                if (response.isSuccessful()) {
                     ServiceGenerator.bearerToken = response.body().getString();
-                    Toast.makeText(LoginActivity.this,"Login succeeded",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login succeeded", Toast.LENGTH_SHORT).show();
                     newActivity();
 
-                }
-                else
-                    Toast.makeText(LoginActivity.this,"error",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<BearerToken> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this,"error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
         });
 

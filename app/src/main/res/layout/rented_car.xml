@@ -86,10 +86,21 @@
         android:id="@+id/faultButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/faultDescritpion"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="44dp"
         android:text="@string/faults" />
+
+    <Switch
+        android:id="@+id/isCritical"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/fuelAmount"
+        android:layout_alignTop="@+id/faultButton"
+        android:layout_marginStart="-50dp"
+        android:text="@string/isCritical" />
 
 </RelativeLayout>

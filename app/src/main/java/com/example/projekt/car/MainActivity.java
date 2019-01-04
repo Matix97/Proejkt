@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private String loginName;
-    private Bundle bundle=new Bundle();
+    private Bundle bundle = new Bundle();
 
     private ViewPager mViewPager;
     //begin todo THIS is conected with google maps-testing
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-       Bundle name=getIntent().getExtras();
-       loginName=(String)name.get("Value1");
-       bundle.putString("dane",loginName);
+        Bundle name = getIntent().getExtras();
+        loginName = (String) name.get("Value1");
+        bundle.putString("dane", loginName);
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
@@ -139,19 +139,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-           if(position==0){
-               HelloFragment helloFragment=HelloFragment.newInstance();
-               helloFragment.setArguments(bundle);
-               return helloFragment;
-           }
-           else if(position==1){
+            if (position == 0) {
+                HelloFragment helloFragment = HelloFragment.newInstance();
+                helloFragment.setArguments(bundle);
+                return helloFragment;
+            } else if (position == 1) {
 
-               return MyListFragment.newInstance();
-           }
-           else{return new MapViewFragment();
-              // return  new  BlankFragmentToMap();
-               //return PlaceholderFragment.newInstance(3);
-           }
+                return MyListFragment.newInstance();
+            } else {
+                return new MapViewFragment();
+                // return  new  BlankFragmentToMap();
+                //return PlaceholderFragment.newInstance(3);
+            }
 
         }
 

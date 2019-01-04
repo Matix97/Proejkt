@@ -31,7 +31,7 @@ import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class MapViewFragment extends Fragment {
 
-    private static final int REQ_PERMISSION = 0 ;
+    private static final int REQ_PERMISSION = 0;
     MapView mMapView;
     private GoogleMap googleMap;
     private LocationManager locationManager;
@@ -39,6 +39,7 @@ public class MapViewFragment extends Fragment {
     private static final float MIN_DISTANCE = 1000;
 
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.location_fragment, container, false);
         //locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
@@ -60,15 +61,15 @@ public class MapViewFragment extends Fragment {
                 googleMap = mMap;
 
                 // For showing a move to my location button
-              //  googleMap.setMyLocationEnabled(true);
-                if(checkPermission())
+                //  googleMap.setMyLocationEnabled(true);
+                if (checkPermission())
                     googleMap.setMyLocationEnabled(true);
                 else askPermission();
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(51.51, 19.24 );
+                LatLng sydney = new LatLng(51.51, 19.24);
                 //LatLng my=;
-               // googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                // googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
@@ -108,14 +109,15 @@ public class MapViewFragment extends Fragment {
         Log.d(TAG, "checkPermission()");
         // Ask for permission if it wasn't granted yet
         return (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED );
+                == PackageManager.PERMISSION_GRANTED);
     }
+
     // Asks for permission
     private void askPermission() {
         Log.d(TAG, "askPermission()");
         ActivityCompat.requestPermissions(
                 getActivity(),
-                new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 REQ_PERMISSION
         );
     }
@@ -124,12 +126,12 @@ public class MapViewFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(TAG, "onRequestPermissionsResult()");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch ( requestCode ) {
+        switch (requestCode) {
             case REQ_PERMISSION: {
-                if ( grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission granted
-                    if(checkPermission())
+                    if (checkPermission())
                         googleMap.setMyLocationEnabled(true);
 
                 } else {
@@ -139,7 +141,8 @@ public class MapViewFragment extends Fragment {
                 break;
             }
         }
-    }}
+    }
+}
    /* @Override
     public void onLocationChanged(Location location) {
 

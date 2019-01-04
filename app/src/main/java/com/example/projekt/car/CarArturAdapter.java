@@ -82,7 +82,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         bundle.putString("idCar", car.getModel());
         intent.putExtras(bundle);
         context.startActivity(intent);*/
-        Toast.makeText(getContext(), car.toString(), Toast.LENGTH_LONG).show(); //todo delete in final version
+        // Toast.makeText(getContext(), car.toString(), Toast.LENGTH_LONG).show(); //todo delete in final version
 
         CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
         //////////////////////////////////////////////////////get location and time
@@ -106,31 +106,37 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
             return;
         }
         Location location = locationManager.getLastKnownLocation(theBestSupplier);
-        longitiude=location.getLongitude();
-        latitiude=location.getLatitude();
+        longitiude = location.getLongitude();
+        latitiude = location.getLatitude();
 
         ////////////////////////////////////
 
 
-        TakeCar takeCar=new TakeCar(car.getId(),false/* biore*/,longitiude,latitiude,timestamp);
-        Call<ResponseBody> call=carService.takeCar(takeCar);
-       call.enqueue(new Callback<ResponseBody>() {
-           @Override
-           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-               if(response.isSuccessful()){
-                   Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
-               }
-               else
-                   Toast.makeText(getContext(), "Failure", Toast.LENGTH_LONG).show();
-           }
+        TakeCar takeCar = new TakeCar(car.getId(), false/* biore*/, longitiude, latitiude, timestamp);
+        Call<ResponseBody> call = carService.takeCar(takeCar);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
+                } else {
+                    //  Toast.makeText(getContext(), "Failure", Toast.LENGTH_LONG).show();
+                }
+            }
 
-           @Override
-           public void onFailure(Call<ResponseBody> call, Throwable t) {
-               Toast.makeText(getContext(), "Failure 2", Toast.LENGTH_LONG).show();
-           }
-       });
-       Intent intent=new Intent(getContext(),RentedCarActivity.class);
-       context.startActivity(intent);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "Failure 2", Toast.LENGTH_LONG).show();
+            }
+        });
+        Intent intent = new Intent(getContext(), RentedCarActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("carID", car.getId());
+        bundle.putString("model", car.getModel());
+        bundle.putString("registrationNumber", car.getRegistrationNumber());
+        intent.putExtras(bundle);
+        //   Toast.makeText(getContext(), "ID: "+car.getId()+"\nModel: "+car.getModel()+"\nRegistration: "+car.getRegistrationNumber(), Toast.LENGTH_LONG).show();
+        context.startActivity(intent);
 
 
     }

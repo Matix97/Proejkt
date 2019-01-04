@@ -6,6 +6,13 @@ public class Fault {
     private String description;
     private long date;
 
+    public Fault(int carID, boolean isCritical, String description, long date) {
+        this.carID = carID;
+        this.isCritical = isCritical;
+        this.description = description;
+        this.date = date;
+    }
+
     public int getCarID() {
         return carID;
     }

@@ -15,12 +15,12 @@ import com.example.projekt.car.data.CarsDataBase;
 import java.util.ArrayList;
 
 
-public class MyListFragment extends android.support.v4.app.ListFragment  {
+public class MyListFragment extends android.support.v4.app.ListFragment {
 
     private ArrayList<Car> carArrayList = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_fragment, container, false);
         return view;
     }
@@ -39,7 +39,6 @@ public class MyListFragment extends android.support.v4.app.ListFragment  {
         fragment.setArguments(args);
         return fragment;
     }
-
 
 
 }

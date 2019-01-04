@@ -44,4 +44,5 @@
     <string name="registration">registration</string>
     <string name="Fueling">Fueling</string>
     <string name="faults">Faults</string>
+    <string name="isCritical">Is Critical</string>
 </resources>
