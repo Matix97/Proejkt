@@ -120,7 +120,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
                 if (response.isSuccessful()) {
                     //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                 } else {
-                    //  Toast.makeText(getContext(), "Failure", Toast.LENGTH_LONG).show();
+                      Toast.makeText(getContext(), "Failure in getting car\n(This shouldn't be open)", Toast.LENGTH_LONG).show();
                 }
             }
 

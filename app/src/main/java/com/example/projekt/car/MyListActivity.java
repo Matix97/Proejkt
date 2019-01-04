@@ -42,7 +42,7 @@ public class MyListActivity extends ListActivity {
             @Override
             public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MyListActivity.this, response.body().get(0).getModel(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MyListActivity.this, response.body().get(0).getModel(), Toast.LENGTH_SHORT).show();
                     data = response.body();
                     //deleting broken or unavailable cars
                     /*for(Cars c:data){

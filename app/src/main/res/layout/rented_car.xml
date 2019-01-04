@@ -26,16 +26,24 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="31dp"
         android:layout_marginTop="20dp"
-        android:text="@string/model" />
+        android:fontFamily="sans-serif"
+        android:text="@string/model"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/registrationText"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
+        android:layout_width="161dp"
+        android:layout_height="43dp"
         android:layout_alignStart="@+id/modelText"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
-        android:text="@string/registration" />
+        android:fontFamily="monospace"
+        android:text="@string/registration"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/fuelingHeader"
@@ -88,10 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/faultDescritpion"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginBottom="44dp"
         android:text="@string/faults" />
 
     <Switch
