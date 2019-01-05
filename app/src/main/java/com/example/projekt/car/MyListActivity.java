@@ -2,8 +2,6 @@ package com.example.projekt.car;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.projekt.car.DTOs.Cars;
@@ -20,20 +18,16 @@ import retrofit2.Response;
 public class MyListActivity extends ListActivity {
 
     List<Cars> data = new ArrayList<>();
-    // ListView listView;
+    List<Cars> finalData = new ArrayList<>();
 
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //  setContentView(R.layout.list_activity);
-        // listView=(ListView)findViewById(R.id.listOfCars);
         downloadCars();
-
-       /* new WebServiceHandler()
-                .execute();             //downloading date in background*/
     }
+
 
     void downloadCars() {
         CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
@@ -42,15 +36,13 @@ public class MyListActivity extends ListActivity {
             @Override
             public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
                 if (response.isSuccessful()) {
-                    //Toast.makeText(MyListActivity.this, response.body().get(0).getModel(), Toast.LENGTH_SHORT).show();
+
                     data = response.body();
-                    //deleting broken or unavailable cars
-                    /*for(Cars c:data){
-                        if(!c.isOK() || c.isTaken())
-                            data.
-                    }*/
-                    CarArturAdapter arturAdapter = new CarArturAdapter(MyListActivity.this, R.layout.cars_adapter, data);
-                    // listView.setAdapter(arturAdapter);
+                    for (int i = 0; i < data.size(); i++) {
+                        if (!data.get(i).isTaken() && data.get(i).isOk())
+                            finalData.add(data.get(i));
+                    }
+                    CarArturAdapter arturAdapter = new CarArturAdapter(MyListActivity.this, R.layout.cars_adapter, finalData);
                     setListAdapter(arturAdapter);
                 } else
                     Toast.makeText(MyListActivity.this, "Error in GET cars ", Toast.LENGTH_SHORT).show();

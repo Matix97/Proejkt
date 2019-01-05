@@ -6,16 +6,16 @@ public class Cars implements Serializable {
     private String model;
     private int faultID;
     private String registrationNumber;
-    private boolean isOK;
+    private boolean isOk;
     private double fuelAmount;
     private boolean isTaken;
     private int id;
 
-    public Cars(String model, int faultID, String registrationNumber, boolean isOK, double fuelAmount, boolean isTaken, int id) {
+    public Cars(String model, int faultID, String registrationNumber, boolean isOk, double fuelAmount, boolean isTaken, int id) {
         this.model = model;
         this.faultID = faultID;
         this.registrationNumber = registrationNumber;
-        this.isOK = isOK;
+        this.isOk = isOk;
         this.fuelAmount = fuelAmount;
         this.isTaken = isTaken;
         this.id = id;
@@ -27,7 +27,7 @@ public class Cars implements Serializable {
                 "model='" + model + '\'' +
                 ", faultID=" + faultID +
                 ", registrationNumber='" + registrationNumber + '\'' +
-                ", isOK=" + isOK +
+                ", isOk=" + isOk +
                 ", fuelAmount=" + fuelAmount +
                 ", isTaken=" + isTaken +
                 ", id=" + id +
@@ -58,12 +58,12 @@ public class Cars implements Serializable {
         this.registrationNumber = registrationNumber;
     }
 
-    public boolean isOK() {
-        return isOK;
+    public boolean isOk() {
+        return isOk;
     }
 
-    public void setOK(boolean OK) {
-        isOK = OK;
+    public void setOk(boolean ok) {
+        isOk = ok;
     }
 
     public double getFuelAmount() {
