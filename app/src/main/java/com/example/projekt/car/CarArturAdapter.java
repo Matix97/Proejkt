@@ -41,6 +41,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
     List<Cars> carList;
     Context context;
     int resource;
+    boolean ifResponseSuccessful;
 
     public CarArturAdapter(@NonNull Context context, int resource, @NonNull List<Cars> objects) {
         super(context, resource, objects);
@@ -112,12 +113,13 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         ////////////////////////////////////
 
 
-        TakeCar takeCar = new TakeCar(car.getId(), false/* biore*/, longitiude, latitiude, timestamp);
+        TakeCar takeCar = new TakeCar(car.getId(), true/* biore*/, longitiude, latitiude, timestamp);
         Call<Void> call = carService.takeCar(takeCar);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
+                    ifResponseSuccessful=true;
                     //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                 } else {
                       Toast.makeText(getContext(), "Failure in getting car\n(This shouldn't be open)", Toast.LENGTH_LONG).show();
@@ -129,15 +131,16 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
                 Toast.makeText(getContext(), "Failure 2", Toast.LENGTH_LONG).show();
             }
         });
-        Intent intent = new Intent(getContext(), RentedCarActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("carID", car.getId());
-        bundle.putString("model", car.getModel());
-        bundle.putString("registrationNumber", car.getRegistrationNumber());
-        intent.putExtras(bundle);
-        //   Toast.makeText(getContext(), "ID: "+car.getId()+"\nModel: "+car.getModel()+"\nRegistration: "+car.getRegistrationNumber(), Toast.LENGTH_LONG).show();
-        context.startActivity(intent);
-
+        if(ifResponseSuccessful) {
+            Intent intent = new Intent(getContext(), RentedCarActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("carID", car.getId());
+            bundle.putString("model", car.getModel());
+            bundle.putString("registrationNumber", car.getRegistrationNumber());
+            intent.putExtras(bundle);
+            //   Toast.makeText(getContext(), "ID: "+car.getId()+"\nModel: "+car.getModel()+"\nRegistration: "+car.getRegistrationNumber(), Toast.LENGTH_LONG).show();
+            context.startActivity(intent);
+        }
 
     }
 }

@@ -1,7 +1,13 @@
 package com.example.projekt.car;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.projekt.car.DTOs.Fault;
 import com.example.projekt.car.DTOs.Fuel;
+import com.example.projekt.car.DTOs.TakeCar;
 import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
 
@@ -105,6 +112,56 @@ public class RentedCarActivity extends AppCompatActivity {
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(RentedCarActivity.this, "something go wrong fault", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
+        //////////////////////////////////////////////////////get location and time
+        double longitiude;
+        double latitiude;
+        long timestamp;
+        Date date = new Date();
+        timestamp = date.getTime();
+        Criteria kr = new Criteria();
+        LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        String theBestSupplier = locationManager.getBestProvider(kr, true);
+
+        if (ActivityCompat.checkSelfPermission(RentedCarActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RentedCarActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(theBestSupplier);
+        longitiude = location.getLongitude();
+        latitiude = location.getLatitude();
+
+        ////////////////////////////////////
+
+
+        TakeCar takeCar = new TakeCar(carID, false/* oddaje*/, longitiude, latitiude, timestamp);
+        Call<Void> call = carService.takeCar(takeCar);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                   // ifResponseSuccessful=true;
+                    //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(RentedCarActivity.this, "Failure in getting car\n(This shouldn't be open)", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(RentedCarActivity.this, "Failure 2", Toast.LENGTH_LONG).show();
             }
         });
     }
