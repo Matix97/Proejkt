@@ -1,14 +1,14 @@
 package com.example.projekt.car.DTOs;
 
 public class TakeCar {
-    private int id;
+    private int carID;
     private boolean isTaken;
     private double longitude;
     private double latitude;
     private long timestamp;
 
     public TakeCar(int id, boolean isTaken, double longitude, double latitude, long timestamp) {
-        this.id = id;
+        this.carID = id;
         this.isTaken = isTaken;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -40,11 +40,11 @@ public class TakeCar {
     }
 
     public int getId() {
-        return id;
+        return carID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int carID) {
+        this.carID = carID;
     }
 
     public boolean isTaken() {

@@ -2,7 +2,7 @@ package com.example.projekt.car.DTOs;
 
 import java.io.Serializable;
 
-public class Cars {
+public class Cars implements Serializable {
     private String model;
     private int faultID;
     private String registrationNumber;

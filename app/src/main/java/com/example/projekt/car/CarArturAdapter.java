@@ -113,10 +113,10 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
 
 
         TakeCar takeCar = new TakeCar(car.getId(), false/* biore*/, longitiude, latitiude, timestamp);
-        Call<ResponseBody> call = carService.takeCar(takeCar);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<Void> call = carService.takeCar(takeCar);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                 } else {
@@ -125,7 +125,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getContext(), "Failure 2", Toast.LENGTH_LONG).show();
             }
         });

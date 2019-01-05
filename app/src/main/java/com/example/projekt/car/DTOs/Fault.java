@@ -4,13 +4,13 @@ public class Fault {
     private int carID;
     private boolean isCritical;
     private String description;
-    private long date;
+    private long timestamp;
 
-    public Fault(int carID, boolean isCritical, String description, long date) {
+    public Fault(int carID, boolean isCritical, String description, long timestamp) {
         this.carID = carID;
         this.isCritical = isCritical;
         this.description = description;
-        this.date = date;
+        this.timestamp = timestamp;
     }
 
     public int getCarID() {
@@ -37,11 +37,11 @@ public class Fault {
         this.description = description;
     }
 
-    public long getDate() {
-        return date;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -63,10 +63,10 @@ public class RentedCarActivity extends AppCompatActivity {
         try {
             Double fuel = Double.parseDouble(fuelAmount.getText().toString());
             //Toast.makeText(this, String.valueOf(fuel), Toast.LENGTH_SHORT).show();//todo remove-only tetsing
-            Call<ResponseBody> call = carService.fuel(new Fuel(carID, fuel, new Date().getTime()));
-            call.enqueue(new Callback<ResponseBody>() {
+            Call<Void> call = carService.fuel(new Fuel(carID, fuel, new Date().getTime()));
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(RentedCarActivity.this, "good fueling", Toast.LENGTH_SHORT).show();
                     } else {
@@ -75,7 +75,7 @@ public class RentedCarActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
                     Toast.makeText(RentedCarActivity.this, "something go wrong fuel", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -90,10 +90,10 @@ public class RentedCarActivity extends AppCompatActivity {
         descripiton = faultDescription.getText().toString();
         // descripiton= String.valueOf(isCriticalAnswer);
         //  Toast.makeText(this, descripiton, Toast.LENGTH_SHORT).show();
-        Call<ResponseBody> call = carService.reportFault(new Fault(carID, isCriticalAnswer, descripiton, new Date().getTime()));
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<Void> call = carService.reportFault(new Fault(carID, isCriticalAnswer, descripiton, new Date().getTime()));
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(RentedCarActivity.this, "good faulting", Toast.LENGTH_SHORT).show();
                 } else {
@@ -102,7 +102,7 @@ public class RentedCarActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(RentedCarActivity.this, "something go wrong fault", Toast.LENGTH_SHORT).show();
 
             }

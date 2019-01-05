@@ -3,12 +3,12 @@ package com.example.projekt.car.DTOs;
 public class Fuel {
     private int carID;
     private double amount;
-    private long date;
+    private long timestamp;
 
-    public Fuel(int carID, double amount, long date) {
+    public Fuel(int carID, double amount, long timestamp) {
         this.carID = carID;
         this.amount = amount;
-        this.date = date;
+        this.timestamp = timestamp;
     }
 
     public int getCarID() {
@@ -27,11 +27,11 @@ public class Fuel {
         this.amount = amount;
     }
 
-    public long getDate() {
-        return date;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
