@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
-    public static final String API_BASE_URL = "http://104.214.72.121:8080/";
+    public static final String API_BASE_URL = "http://carsprojectapi.southcentralus.cloudapp.azure.com:8080/";
 
     public static String bearerToken;
 

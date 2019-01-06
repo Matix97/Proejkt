@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class RentedCarActivity extends AppCompatActivity {
 
-    private TextView fuelAmount, faultDescription, registrationText, modelText;
+    private TextView fuelAmount, faultDescription, registrationText, modelText, fuelingPrice;
     private Button fuelButton, faultButton;
     private Switch isCritical;
     private CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
@@ -49,6 +49,7 @@ public class RentedCarActivity extends AppCompatActivity {
         isCritical = findViewById(R.id.isCritical);
         registrationText = findViewById(R.id.registrationText);
         modelText = findViewById(R.id.modelText);
+        fuelingPrice=findViewById(R.id.fuelingPrice);
 
         isCritical.setOnCheckedChangeListener((buttonView, isChecked) -> isCriticalAnswer = isChecked);
         fuelButton.setOnClickListener(v -> fueling(v));
@@ -69,8 +70,32 @@ public class RentedCarActivity extends AppCompatActivity {
     private void fueling(View v) {
         try {
             Double fuel = Double.parseDouble(fuelAmount.getText().toString());
+            Double price=Double.parseDouble(fuelingPrice.getText().toString());
             //Toast.makeText(this, String.valueOf(fuel), Toast.LENGTH_SHORT).show();//todo remove-only tetsing
-            Call<Void> call = carService.fuel(new Fuel(carID, fuel, new Date().getTime()));
+            //////////////////////////////////////////////////////get location and time
+            double longitiude;
+            double latitiude;
+            long timestamp;
+            Date date = new Date();
+            timestamp = date.getTime();
+            Criteria kr = new Criteria();
+            LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+            String theBestSupplier = locationManager.getBestProvider(kr, true);
+
+            if (ActivityCompat.checkSelfPermission(RentedCarActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RentedCarActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            Location location = locationManager.getLastKnownLocation(theBestSupplier);
+            longitiude = location.getLongitude();
+            latitiude = location.getLatitude();
+            Call<Void> call = carService.fuel(new Fuel(carID, fuel, new Date().getTime(),latitiude,longitiude,price));
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
@@ -165,4 +190,6 @@ public class RentedCarActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

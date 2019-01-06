@@ -4,11 +4,17 @@ public class Fuel {
     private int carID;
     private double amount;
     private long timestamp;
+    private double latitude;
+    private double longitude;
+    private double price;
 
-    public Fuel(int carID, double amount, long timestamp) {
+    public Fuel(int carID, double amount, long timestamp, double latitude, double longitude, double price) {
         this.carID = carID;
         this.amount = amount;
         this.timestamp = timestamp;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.price = price;
     }
 
     public int getCarID() {
@@ -33,5 +39,29 @@ public class Fuel {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

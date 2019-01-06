@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="114dp"
+        android:layout_marginTop="98dp"
         android:fontFamily="casual"
         android:text="@string/Fueling"
         android:textAlignment="center"
@@ -63,11 +63,23 @@
         android:id="@+id/fuelAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/faultDescritpion"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="169dp"
+        android:layout_marginTop="130dp"
         android:ems="10"
         android:hint="Enter an amount of fuel"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/fuelingPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/faultDescritpion"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="177dp"
+        android:ems="10"
+        android:hint="Cost of fuel"
         android:inputType="numberDecimal" />
 
     <EditText
@@ -85,9 +97,10 @@
         android:id="@+id/fuelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="216dp"
+        android:layout_marginEnd="17dp"
         android:text="@string/fuel" />
 
     <Button

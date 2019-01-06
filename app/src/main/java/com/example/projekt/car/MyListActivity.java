@@ -29,6 +29,7 @@ public class MyListActivity extends ListActivity {
     }
 
 
+
     void downloadCars() {
         CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
         Call<List<Cars>> call = carService.getCars();
