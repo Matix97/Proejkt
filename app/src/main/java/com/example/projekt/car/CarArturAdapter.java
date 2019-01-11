@@ -61,7 +61,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
 
         TextView modelText = view.findViewById(R.id.modelText);
         TextView registrationText = view.findViewById(R.id.registrationText);
-        TextView fuelText = view.findViewById(R.id.fuelText);
+        //TextView fuelText = view.findViewById(R.id.fuelText);
         Cars car = carList.get(position);
         Cars idCar = getItem(position);
 
@@ -70,7 +70,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
 
         modelText.setText("" + car.getModel());
         registrationText.setText("Registration: " + car.getRegistrationNumber());
-        fuelText.setText("Fuel: " + car.getFuelAmount());
+       // fuelText.setText("Fuel: " + car.getFuelAmount());
 
 
         return view;
@@ -122,7 +122,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
                     ifResponseSuccessful=true;
                     //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                 } else {
-                      Toast.makeText(getContext(), "Failure in getting car\n(This shouldn't be open)", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Failure in getting car\n(This shouldn't be open)", Toast.LENGTH_LONG).show();
                     ifResponseSuccessful=false;
                 }
             }

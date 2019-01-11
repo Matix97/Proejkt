@@ -1,12 +1,19 @@
 package com.example.projekt.car;
 
+import android.Manifest;
 import android.app.ListActivity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +22,62 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
+
 public class MyListActivity extends ListActivity {
 
     List<Cars> data = new ArrayList<>();
     List<Cars> finalData = new ArrayList<>();
-
+    private GoogleMap googleMap;
+    private static final int REQ_PERMISSION = 0;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         downloadCars();
+        if (checkPermission()){}
+          //  googleMap.setMyLocationEnabled(true);
+        else askPermission();
+    }
+    // Check for permission to access Location
+    private boolean checkPermission() {
+        Log.d(TAG, "checkPermission()");
+        // Ask for permission if it wasn't granted yet
+        return (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED);
     }
 
+    // Asks for permission
+    private void askPermission() {
+        Log.d(TAG, "askPermission()");
+        ActivityCompat.requestPermissions(
+               this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                REQ_PERMISSION
+        );
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult()");
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQ_PERMISSION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted
+                    if (checkPermission()){}
+                      //  googleMap.setMyLocationEnabled(true);
+
+                } else {
+                    // Permission denied
+
+                }
+                break;
+            }
+        }
+    }
 
 
     void downloadCars() {

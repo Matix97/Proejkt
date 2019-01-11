@@ -4,21 +4,25 @@ import java.io.Serializable;
 
 public class Cars implements Serializable {
     private String model;
-    private int faultID;
+    private Integer faultID;//null if car has no fault
     private String registrationNumber;
     private boolean isOk;
-    private double fuelAmount;
     private boolean isTaken;
     private int id;
+    private double latitude;
+    private double longitude;
+    private Integer userID;//null if car isn't taken
 
-    public Cars(String model, int faultID, String registrationNumber, boolean isOk, double fuelAmount, boolean isTaken, int id) {
+    public Cars(String model, Integer faultID, String registrationNumber, boolean isOk, boolean isTaken, int id, double latitude, double longitude, int userID) {
         this.model = model;
         this.faultID = faultID;
         this.registrationNumber = registrationNumber;
         this.isOk = isOk;
-        this.fuelAmount = fuelAmount;
         this.isTaken = isTaken;
         this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.userID = userID;
     }
 
     @Override
@@ -28,9 +32,11 @@ public class Cars implements Serializable {
                 ", faultID=" + faultID +
                 ", registrationNumber='" + registrationNumber + '\'' +
                 ", isOk=" + isOk +
-                ", fuelAmount=" + fuelAmount +
                 ", isTaken=" + isTaken +
                 ", id=" + id +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", userID=" + userID +
                 '}';
     }
 
@@ -42,11 +48,11 @@ public class Cars implements Serializable {
         this.model = model;
     }
 
-    public int getFaultID() {
+    public Integer getFaultID() {
         return faultID;
     }
 
-    public void setFaultID(int faultID) {
+    public void setFaultID(Integer faultID) {
         this.faultID = faultID;
     }
 
@@ -66,14 +72,6 @@ public class Cars implements Serializable {
         isOk = ok;
     }
 
-    public double getFuelAmount() {
-        return fuelAmount;
-    }
-
-    public void setFuelAmount(double fuelAmount) {
-        this.fuelAmount = fuelAmount;
-    }
-
     public boolean isTaken() {
         return isTaken;
     }
@@ -88,5 +86,29 @@ public class Cars implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 }
