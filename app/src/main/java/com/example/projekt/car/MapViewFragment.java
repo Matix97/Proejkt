@@ -1,9 +1,7 @@
 package com.example.projekt.car;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.projekt.car.DTOs.Cars;
+import com.example.projekt.car.Services.CarService;
+import com.example.projekt.car.Services.ServiceGenerator;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -25,18 +26,27 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.content.ContentValues.TAG;
-import static android.content.Context.LOCATION_SERVICE;
-import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class MapViewFragment extends Fragment {
 
     private static final int REQ_PERMISSION = 0;
+    private static final long MIN_TIME = 400;
+    private static final float MIN_DISTANCE = 1000;
     MapView mMapView;
     private GoogleMap googleMap;
     private LocationManager locationManager;
-    private static final long MIN_TIME = 400;
-    private static final float MIN_DISTANCE = 1000;
+
+
+    List<Cars> data = new ArrayList<>();
+    List<Cars> finalData = new ArrayList<>();
 
     @Override
 
@@ -74,6 +84,7 @@ public class MapViewFragment extends Fragment {
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                downloadCars();
             }
         });
 
@@ -142,21 +153,52 @@ public class MapViewFragment extends Fragment {
             }
         }
     }
+    /*   @Override
+   public void onLocationChanged(Location location) {
+
+       latitude= location.getLatitude();
+       longitude=location.getLongitude();
+
+       LatLng loc = new LatLng(latitude, longitude);
+
+       if (marker!=null){
+           marker.remove();
+       }
+
+       marker=  map.addMarker(new MarkerOptions().position(loc).title("Sparx IT Solutions"));
+       map.moveCamera(CameraUpdateFactory.newLatLng(loc));
+       map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+
+   }*/
+    void downloadCars() {
+        CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
+        Call<List<Cars>> call = carService.getCars();
+        call.enqueue(new Callback<List<Cars>>() {
+            @Override
+            public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
+                if (response.isSuccessful()) {
+
+                    data = response.body();
+                    for (int i = 0; i < data.size(); i++) {
+                        if (!data.get(i).isTaken() && data.get(i).isOk())
+                            finalData.add(data.get(i));
+                    }
+                    // CarArturAdapter arturAdapter = new CarArturAdapter(MyListActivity.this, R.layout.cars_adapter, finalData);
+                    //setListAdapter(arturAdapter);
+                    // For dropping a marker at a point on the Map
+                    for(int i=0;i<finalData.size();i++) {
+                        LatLng sydney = new LatLng(finalData.get(i).getLatitude(), finalData.get(i).getLongitude());
+
+                        googleMap.addMarker(new MarkerOptions().position(sydney).title(finalData.get(i).getModel()).snippet(finalData.get(i).getRegistrationNumber()));
+                    }
+                } else
+                    Toast.makeText(getContext(), "Error in GET cars ", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Cars>> call, Throwable t) {
+                Toast.makeText(getContext(), "FAILURE Error in GET cars ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
-   /* @Override
-    public void onLocationChanged(Location location) {
-
-        latitude= location.getLatitude();
-        longitude=location.getLongitude();
-
-        LatLng loc = new LatLng(latitude, longitude);
-
-        if (marker!=null){
-            marker.remove();
-        }
-
-        marker=  map.addMarker(new MarkerOptions().position(loc).title("Sparx IT Solutions"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(loc));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
-
-    }*/
