@@ -88,7 +88,8 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(),"FAILURE Error in GET cars ",Toast.LENGTH_SHORT).show();
             }
         });*/
-        newActivity();
+      //  newActivity();
+        Toast.makeText(getActivity(),"NFC hear ",Toast.LENGTH_SHORT).show();
     }
 
 

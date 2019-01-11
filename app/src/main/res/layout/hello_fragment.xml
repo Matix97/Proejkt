@@ -35,7 +35,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="67dp"
-        android:text="@string/YourHistory"/>
+        android:text="@string/NFCButton"/>
        <!-- android:onClick="nfcActivity"-->
 
 </RelativeLayout>
