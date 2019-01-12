@@ -45,4 +45,6 @@
     <string name="Fueling">Fueling</string>
     <string name="faults">Faults</string>
     <string name="isCritical">Is Critical</string>
+
+    <string name="explanation">Tap device with NFC tag</string>
 </resources>
