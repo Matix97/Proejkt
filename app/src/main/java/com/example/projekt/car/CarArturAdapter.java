@@ -60,10 +60,11 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         TextView modelText = view.findViewById(R.id.modelText);
         TextView registrationText = view.findViewById(R.id.registrationText);
         //TextView fuelText = view.findViewById(R.id.fuelText);
-        ImageView imageView = view.findViewById(R.id.imageView3);
+        //ImageView imageView = view.findViewById(R.id.imageView3);
         Cars car = carList.get(position);
         Cars idCar = getItem(position);
         //it's stupid but it's look better
+/*
         if(car.getRegistrationNumber().equals("EL 3G456")){
             imageView.setImageResource(R.drawable.avensis);
         }else if(car.getRegistrationNumber().equals("EL FG456")){
@@ -77,6 +78,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         }else{
             imageView.setImageResource(R.drawable.default_car);
         }
+*/
 
         view.setOnClickListener(v -> newActivity(idCar));
 

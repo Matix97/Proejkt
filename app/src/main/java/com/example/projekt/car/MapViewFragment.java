@@ -2,6 +2,8 @@ package com.example.projekt.car;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +21,7 @@ import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,8 +38,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.LOCATION_SERVICE;
 
-public class MapViewFragment extends Fragment {
+public class MapViewFragment extends Fragment implements LocationSource.OnLocationChangedListener {
 
     private static final int REQ_PERMISSION = 0;
     private static final long MIN_TIME = 400;
@@ -82,8 +87,32 @@ public class MapViewFragment extends Fragment {
                 // googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                //////////////////////////////////////////////////////get location
+
+
+                Date date = new Date();
+
+                Criteria kr = new Criteria();
+                LocationManager locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+                String theBestSupplier = locationManager.getBestProvider(kr, true);
+
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                Location location = locationManager.getLastKnownLocation(theBestSupplier);
+
+                LatLng myLocation = new LatLng( location.getLatitude(),  location.getLongitude());
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+               /* CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
                 downloadCars();
             }
         });
@@ -95,18 +124,21 @@ public class MapViewFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        downloadCars();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+        downloadCars();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
+        downloadCars();
     }
 
     @Override
@@ -200,5 +232,13 @@ public class MapViewFragment extends Fragment {
                 Toast.makeText(getContext(), "FAILURE Error in GET cars ", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        LatLng myLocation = new LatLng( location.getLatitude(),  location.getLongitude());
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
     }
 }

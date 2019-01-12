@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.projekt.car.CarArturAdapter;
-import com.example.projekt.car.CarListAdapter;
+//import com.example.projekt.car.CarListAdapter;
 
 import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.MyListActivity;
