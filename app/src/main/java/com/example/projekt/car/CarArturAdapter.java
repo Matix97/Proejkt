@@ -24,12 +24,10 @@ import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.DTOs.TakeCar;
 import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
-import com.example.projekt.car.data.Car;
 
 import java.util.Date;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,8 +60,23 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         TextView modelText = view.findViewById(R.id.modelText);
         TextView registrationText = view.findViewById(R.id.registrationText);
         //TextView fuelText = view.findViewById(R.id.fuelText);
+        ImageView imageView = view.findViewById(R.id.imageView3);
         Cars car = carList.get(position);
         Cars idCar = getItem(position);
+        //it's stupid but it's look better
+        if(car.getRegistrationNumber().equals("EL 3G456")){
+            imageView.setImageResource(R.drawable.avensis);
+        }else if(car.getRegistrationNumber().equals("EL FG456")){
+            imageView.setImageResource(R.drawable.kia_ceed);
+        }else if(car.getRegistrationNumber().equals("EL FG458")){
+            imageView.setImageResource(R.drawable.kia_rio);
+        }else if(car.getRegistrationNumber().equals("EL T87GH")){
+            imageView.setImageResource(R.drawable.ford_fiesta);
+        }else if(car.getRegistrationNumber().equals("EZG 32456")){
+            imageView.setImageResource(R.drawable.seat_toledo2);
+        }else{
+            imageView.setImageResource(R.drawable.default_car);
+        }
 
         view.setOnClickListener(v -> newActivity(idCar));
 
