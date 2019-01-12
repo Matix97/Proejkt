@@ -117,7 +117,7 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, "Registration succeeded", Toast.LENGTH_SHORT).show();
 
                 } else
-                    Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Be patient\n sometimes we have some bugs\nor your internet conection isn't perfect ", Toast.LENGTH_SHORT).show();
             }
 
             @Override

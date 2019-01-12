@@ -63,7 +63,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         //ImageView imageView = view.findViewById(R.id.imageView3);
         Cars car = carList.get(position);
         Cars idCar = getItem(position);
-        //it's stupid but it's look better
+        //it's stupid but it's look better... but it's soooooo slooooowww
 /*
         if(car.getRegistrationNumber().equals("EL 3G456")){
             imageView.setImageResource(R.drawable.avensis);
@@ -80,7 +80,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         }
 */
 
-        view.setOnClickListener(v -> newActivity(idCar));
+        view.setOnClickListener(v -> newActivity(car));
 
 
         modelText.setText("" + car.getModel());
@@ -98,7 +98,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         bundle.putString("idCar", car.getModel());
         intent.putExtras(bundle);
         context.startActivity(intent);*/
-        // Toast.makeText(getContext(), car.toString(), Toast.LENGTH_LONG).show(); //todo delete in final version
+       // Toast.makeText(getContext(), car.toString(), Toast.LENGTH_LONG).show(); //todo delete in final version
 
         CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
         //////////////////////////////////////////////////////get location and time
@@ -133,12 +133,20 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+               // Toast.makeText(getContext(), response.message()+"\n "+response.isSuccessful(), Toast.LENGTH_LONG).show();
                 if (response.isSuccessful()) {
-                    ifResponseSuccessful=true;
-                    //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
+                 //   ifResponseSuccessful=true;
+                    Intent intent = new Intent(getContext(), RentedCarActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("carID", car.getId());
+                    bundle.putString("model", car.getModel());
+                    bundle.putString("registrationNumber", car.getRegistrationNumber());
+                    intent.putExtras(bundle);
+                    //   Toast.makeText(getContext(), "ID: "+car.getId()+"\nModel: "+car.getModel()+"\nRegistration: "+car.getRegistrationNumber(), Toast.LENGTH_LONG).show();
+                    context.startActivity(intent);
                 } else {
-                    Toast.makeText(getContext(), "Failure in getting car\n(This shouldn't be open)", Toast.LENGTH_LONG).show();
-                    ifResponseSuccessful=false;
+                    Toast.makeText(getContext(), "Failure in getting car\n(This shouldn't be open)\n"+response.message(), Toast.LENGTH_LONG).show();
+                   // ifResponseSuccessful=false;
                 }
             }
 
@@ -147,6 +155,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
                 Toast.makeText(getContext(), "Failure 2", Toast.LENGTH_LONG).show();
             }
         });
+       /* Toast.makeText(getContext(), "Response: "+ifResponseSuccessful, Toast.LENGTH_LONG).show(); //todo delete in final version
         if(ifResponseSuccessful) {
             Intent intent = new Intent(getContext(), RentedCarActivity.class);
             Bundle bundle = new Bundle();
@@ -156,7 +165,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
             intent.putExtras(bundle);
             //   Toast.makeText(getContext(), "ID: "+car.getId()+"\nModel: "+car.getModel()+"\nRegistration: "+car.getRegistrationNumber(), Toast.LENGTH_LONG).show();
             context.startActivity(intent);
-        }
+        }*/
 
     }
 }

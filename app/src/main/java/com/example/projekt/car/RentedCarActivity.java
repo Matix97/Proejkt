@@ -180,7 +180,7 @@ public class RentedCarActivity extends AppCompatActivity {
                    // ifResponseSuccessful=true;
                     //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(RentedCarActivity.this, "Failure in getting car\n(This shouldn't be open)", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RentedCarActivity.this, "Failure in getting car\n(This shouldn't be open)\n"+response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 

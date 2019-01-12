@@ -20,6 +20,17 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = applicationId;
+            outputFileName += "-v" + android.defaultConfig.versionName;
+            if (variant.buildType.name == "release") {
+                outputFileName += ".apk";
+            } else {
+                outputFileName += "PK_Car.apk";
+            }
+        }
+    }
 }
 
 dependencies {
