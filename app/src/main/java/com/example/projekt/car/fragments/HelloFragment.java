@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.Exceptions.PersonDoesNotExist;
 import com.example.projekt.car.MyListActivity;
+import com.example.projekt.car.NfcActivity;
 import com.example.projekt.car.R;
 import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
@@ -88,17 +89,19 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(),"FAILURE Error in GET cars ",Toast.LENGTH_SHORT).show();
             }
         });*/
-      //  newActivity();
-        Toast.makeText(getActivity(),"NFC hear ",Toast.LENGTH_SHORT).show();
+
+        newActivity();
+        //Toast.makeText(getActivity(),"NFC hear ",Toast.LENGTH_SHORT).show();
     }
 
 
 
     private void newActivity() {
-        Intent intent = new Intent(getActivity(), MyListActivity.class);
+        //  Intent intent = new Intent(getActivity(), MyListActivity.class);
         //  Bundle bundle=new Bundle();
-        // bundle.putString("idCar", "Audi");
+        //  bundle.putString("idCar", "Audi");
         //  intent.putExtras(bundle);
+        Intent intent = new Intent(getActivity(), NfcActivity.class);
         startActivity(intent);
     }
 }
