@@ -57,7 +57,7 @@ public class RentedCarActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        carID = bundle.getInt("carID");
+       // carID = bundle.getString("carID");
         String reg = bundle.getString("registrationNumber");
         String mod = bundle.getString("model");
         // Toast.makeText(this, "ID: "+carID+"\nModel: "+mod+"\nRegistration: "+reg, Toast.LENGTH_LONG).show();

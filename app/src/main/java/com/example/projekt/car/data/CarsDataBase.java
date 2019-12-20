@@ -17,20 +17,20 @@ public class CarsDataBase {
     private ArrayList<Car> carArrayList;
 
     void init(){
-        carArrayList.add(new Car(1.0,2.0,false,54.0,"Seat Toledo",false,false,R.drawable.seat_toledo));
-        carArrayList.add(new Car(1.0,2.0,false,50.0,"Audi",false,false,R.drawable.auto2));
-        carArrayList.add(new Car(1.0,2.0,false,69.0,"Jeep",false,false,R.drawable.jeap));
-        carArrayList.add(new Car(1.0,2.0,false,48.0,"Mercedes",false,false,R.drawable.mercedes));
-        carArrayList.add(new Car(1.0,2.0,false,55.0,"Fiat Tipo",false,false,R.drawable.fiat_tipo));
-        carArrayList.add(new Car(1.0,2.0,false,70.0,"Toyota Auris",false,false,R.drawable.toyota_auris));
-        carArrayList.add(new Car(1.0,2.0,false,20.5,"KIA Ceed GT",false,false,R.drawable.kia_ceed_gt));
-        carArrayList.add(new Car(1.0,2.0,false,54.0,"Seat Toledo2",false,false,R.drawable.seat_toledo));
-        carArrayList.add(new Car(1.0,2.0,false,50.0,"Audi2",false,false,R.drawable.auto2));
-        carArrayList.add(new Car(1.0,2.0,false,69.0,"Jeep2",false,false,R.drawable.jeap));
-        carArrayList.add(new Car(1.0,2.0,false,48.0,"Mercedes2",false,false,R.drawable.mercedes));
-        carArrayList.add(new Car(1.0,2.0,false,55.0,"Fiat Tipo2",false,false,R.drawable.fiat_tipo));
-        carArrayList.add(new Car(1.0,2.0,false,70.0,"Toyota Auris2",false,false,R.drawable.toyota_auris));
-        carArrayList.add(new Car(1.0,2.0,false,20.5,"KIA Ceed GT2",false,false,R.drawable.kia_ceed_gt));
+        carArrayList.add(new Car(51.8745,19.363,false,54.0,"Seat Toledo",false,false,R.drawable.seat_toledo));
+        carArrayList.add(new Car(51.77,19.48,false,50.0,"Audi",false,false,R.drawable.auto2));
+        carArrayList.add(new Car(51.78,19.44,false,69.0,"Jeep",false,false,R.drawable.jeap));
+        carArrayList.add(new Car(51.73,19.47,false,48.0,"Mercedes",false,false,R.drawable.mercedes));
+        carArrayList.add(new Car(1.0,62.0,false,55.0,"Fiat Tipo",false,false,R.drawable.fiat_tipo));
+        carArrayList.add(new Car(1.0,52.0,false,70.0,"Toyota Auris",false,false,R.drawable.toyota_auris));
+        carArrayList.add(new Car(1.0,62.0,false,20.5,"KIA Ceed GT",false,false,R.drawable.kia_ceed_gt));
+        carArrayList.add(new Car(1.0,62.0,false,54.0,"Seat Toledo2",false,false,R.drawable.seat_toledo));
+        carArrayList.add(new Car(1.0,42.0,false,50.0,"Audi2",false,false,R.drawable.auto2));
+        carArrayList.add(new Car(1.0,45.0,false,69.0,"Jeep2",false,false,R.drawable.jeap));
+        carArrayList.add(new Car(1.0,25.0,false,48.0,"Mercedes2",false,false,R.drawable.mercedes));
+        carArrayList.add(new Car(1.0,27.0,false,55.0,"Fiat Tipo2",false,false,R.drawable.fiat_tipo));
+        carArrayList.add(new Car(1.0,28.0,false,70.0,"Toyota Auris2",false,false,R.drawable.toyota_auris));
+        carArrayList.add(new Car(1.0,29.0,false,20.5,"KIA Ceed GT2",false,false,R.drawable.kia_ceed_gt));
     }
 
     public CarsDataBase(ArrayList<Car> carArrayList) {

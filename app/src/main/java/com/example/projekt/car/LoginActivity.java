@@ -14,6 +14,7 @@ import com.example.projekt.car.DTOs.Login;
 import com.example.projekt.car.DTOs.Register;
 import com.example.projekt.car.Services.ServiceGenerator;
 import com.example.projekt.car.Services.UserService;
+import com.example.projekt.car.data.PeopleDataBase;
 import com.example.projekt.car.data.Person;
 
 import okhttp3.Credentials;
@@ -27,6 +28,7 @@ public class LoginActivity extends Activity {
     Button b1, b2;
     EditText ed1, ed2;
     private String TAG = "Tag: ";
+    PeopleDataBase peopleDataBase = new PeopleDataBase();
 
     @Override
     protected void onStart() {
@@ -107,52 +109,54 @@ public class LoginActivity extends Activity {
     }
 
     private void tryRegister() {
-        Register register = new Register(ed1.getText().toString(), ed1.getText().toString(), ed2.getText().toString(), ed2.getText().toString());
-        Call<Person> call = userService.register(register);
-
-        call.enqueue(new Callback<Person>() {
-            @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Registration succeeded", Toast.LENGTH_SHORT).show();
-
-                } else
-                    Toast.makeText(LoginActivity.this, "Be patient\n sometimes we have some bugs\nor your internet conection isn't perfect ", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Person> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Register register = new Register(ed1.getText().toString(), ed1.getText().toString(), ed2.getText().toString(), ed2.getText().toString());
+//        Call<Person> call = userService.register(register);
+//
+//        call.enqueue(new Callback<Person>() {
+//            @Override
+//            public void onResponse(Call<Person> call, Response<Person> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(LoginActivity.this, "Registration succeeded", Toast.LENGTH_SHORT).show();
+//
+//                } else
+//                    Toast.makeText(LoginActivity.this, "Be patient\n sometimes we have some bugs\nor your internet conection isn't perfect ", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Person> call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        peopleDataBase.addPerson(new Person("name","surname", ed1.getText().toString(),ed2.getText().toString()));
+        Toast.makeText(LoginActivity.this, "register successful, try to login ", Toast.LENGTH_SHORT).show();
     }
 
     private void tryLogin() throws PersonDoesNotExist {
 
-        Login login = new Login(ed1.getText().toString(), ed2.getText().toString());
+//        Login login = new Login(ed1.getText().toString(), ed2.getText().toString());
+//
+//        Call<BearerToken> call = userService.login(Credentials.basic(ed1.getText().toString(), ed2.getText().toString()));
+//        call.enqueue(new Callback<BearerToken>() {
+//            @Override
+//            public void onResponse(Call<BearerToken> call, Response<BearerToken> response) {
+//                if (response.isSuccessful()) {
+//                    ServiceGenerator.bearerToken = response.body().getString();
+//                    Toast.makeText(LoginActivity.this, "Login succeeded", Toast.LENGTH_SHORT).show();
+//                    newActivity();
+//
+//                } else
+//                    Toast.makeText(LoginActivity.this, "error Jeb", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BearerToken> call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        Call<BearerToken> call = userService.login(Credentials.basic(ed1.getText().toString(), ed2.getText().toString()));
-        call.enqueue(new Callback<BearerToken>() {
-            @Override
-            public void onResponse(Call<BearerToken> call, Response<BearerToken> response) {
-                if (response.isSuccessful()) {
-                    ServiceGenerator.bearerToken = response.body().getString();
-                    Toast.makeText(LoginActivity.this, "Login succeeded", Toast.LENGTH_SHORT).show();
-                    newActivity();
+        Boolean loginOK = false;
 
-                } else
-                    Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onFailure(Call<BearerToken> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        /*Boolean loginOK = false;
-
-        PeopleDataBase peopleDataBase = new PeopleDataBase();
         for (int i = 0; i < peopleDataBase.size(); i++) {
             if (peopleDataBase.isExist(ed1.getText().toString())) {
                 if (peopleDataBase.getPerson(ed1.getText().toString()).getPassword().equals(ed2.getText().toString())) {
@@ -168,7 +172,7 @@ public class LoginActivity extends Activity {
             Toast toast = Toast.makeText(getApplicationContext(), "You haven't account or password is incorrect", Toast.LENGTH_LONG);
             toast.show();
         }
-*/
+
 
     }
 

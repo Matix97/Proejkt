@@ -19,6 +19,7 @@ public class PeopleDataBase {
         personArrayList.add(new Person("Mateusz","Kowalski","mateuszKowalski@gmail.com","admin"));
         personArrayList.add(new Person("Szymon","Kowalski","szymonKowalski@gmail.com","admin"));
         personArrayList.add(new Person("Artur","Kowalski","arturKowalski@gmail.com","admin"));
+        personArrayList.add(new Person("admin","admin","admin","admin"));
 
     }
     public PeopleDataBase(ArrayList<Person> personArrayList) {

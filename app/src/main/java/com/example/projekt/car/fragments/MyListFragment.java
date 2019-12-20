@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.projekt.car.CarArturAdapter;
 //import com.example.projekt.car.CarListAdapter;
 
+import com.example.projekt.car.CarListAdapter;
 import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.MyListActivity;
 import com.example.projekt.car.R;
@@ -30,7 +31,7 @@ import retrofit2.Response;
 
 public class MyListFragment extends android.support.v4.app.ListFragment {
 
-  //  private ArrayList<Car> carArrayList = new ArrayList<>();
+    private ArrayList<Car> carArrayList = new ArrayList<>();
 
     List<Cars> data = new ArrayList<>();
     List<Cars> finalData = new ArrayList<>();
@@ -44,10 +45,10 @@ public class MyListFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*carArrayList = new CarsDataBase().getCarArrayList();
+        carArrayList = new CarsDataBase().getCarArrayList();
         CarListAdapter adapter1 = new CarListAdapter(getActivity(), R.layout.car_item_list_adapter, carArrayList);
-        setListAdapter(adapter1);*/
-        downloadCars();
+        setListAdapter(adapter1);
+       // downloadCars();
     }
 
     public static MyListFragment newInstance() {

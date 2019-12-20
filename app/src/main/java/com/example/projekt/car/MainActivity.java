@@ -1,7 +1,6 @@
 package com.example.projekt.car;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -10,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle name = getIntent().getExtras();
         loginName = (String) name.get("Value1");
         bundle.putString("dane", loginName);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager =  findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
@@ -83,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
                             .fromResource(R.drawable.logo)));
         }*/
         // end todo THIS is conected with google maps-testing
-        new WebServiceHandler()
-                .execute();             //downloading date in background
+//        new WebServiceHandler()
+//                .execute();             //downloading date in background
 
     }
 
@@ -146,12 +144,13 @@ public class MainActivity extends AppCompatActivity {
             if (position == 0) {
                 HelloFragment helloFragment = HelloFragment.newInstance();
                 helloFragment.setArguments(bundle);
+               // return PlaceholderFragment.newInstance(1);
                 return helloFragment;
             } else if (position == 1) {
-
+                //return PlaceholderFragment.newInstance(2);
                 return MyListFragment.newInstance();
             } else {
-                return new MapViewFragment();
+               return new MapViewFragment();
                 // return  new  BlankFragmentToMap();
                 //return PlaceholderFragment.newInstance(3);
             }

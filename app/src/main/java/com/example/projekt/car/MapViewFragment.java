@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
+import com.example.projekt.car.data.Car;
+import com.example.projekt.car.data.CarsDataBase;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
@@ -49,7 +51,7 @@ public class MapViewFragment extends Fragment implements LocationSource.OnLocati
     private GoogleMap googleMap;
     private LocationManager locationManager;
 
-
+    private ArrayList<Car> carArrayList = new ArrayList<>();
     List<Cars> data = new ArrayList<>();
     List<Cars> finalData = new ArrayList<>();
 
@@ -83,9 +85,14 @@ public class MapViewFragment extends Fragment implements LocationSource.OnLocati
 
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(51.51, 19.24);
-                //LatLng my=;
-                // googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                //LatLng my=
+                 googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                carArrayList=new CarsDataBase().getCarArrayList();
+                for(int i=0;i<carArrayList.size();i++) {
+                    LatLng sydney2 = new LatLng(carArrayList.get(i).getxCoordinate(), carArrayList.get(i).getyCoordinate());
 
+                          googleMap.addMarker(new MarkerOptions().position(sydney2).title(carArrayList.get(i).getCarsID()).snippet(carArrayList.get(i).getFuel().toString()));
+                }
                 // For zooming automatically to the location of the marker
                 //////////////////////////////////////////////////////get location
 
@@ -203,35 +210,36 @@ public class MapViewFragment extends Fragment implements LocationSource.OnLocati
 
    }*/
     void downloadCars() {
-        CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
-        Call<List<Cars>> call = carService.getCars();
-        call.enqueue(new Callback<List<Cars>>() {
-            @Override
-            public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
-                if (response.isSuccessful()) {
+      //  CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
+       // Call<List<Cars>> call = carService.getCars();
+//        call.enqueue(new Callback<List<Cars>>() {
+//            @Override
+//            public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
+//                if (response.isSuccessful()) {
+//
+//                    data = response.body();
+//                    for (int i = 0; i < data.size(); i++) {
+//                        if (!data.get(i).isTaken() && data.get(i).isOk())
+//                            finalData.add(data.get(i));
+//                    }
+//                    // CarArturAdapter arturAdapter = new CarArturAdapter(MyListActivity.this, R.layout.cars_adapter, finalData);
+//                    //setListAdapter(arturAdapter);
+//                    // For dropping a marker at a point on the Map
+//                    for(int i=0;i<finalData.size();i++) {
+//                        LatLng sydney = new LatLng(finalData.get(i).getLatitude(), finalData.get(i).getLongitude());
+//
+//                        googleMap.addMarker(new MarkerOptions().position(sydney).title(finalData.get(i).getModel()).snippet(finalData.get(i).getRegistrationNumber()));
+//                    }
+//                } else
+//                    Toast.makeText(getContext(), "Error in GET cars ", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Cars>> call, Throwable t) {
+//                Toast.makeText(getContext(), "FAILURE Error in GET cars ", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-                    data = response.body();
-                    for (int i = 0; i < data.size(); i++) {
-                        if (!data.get(i).isTaken() && data.get(i).isOk())
-                            finalData.add(data.get(i));
-                    }
-                    // CarArturAdapter arturAdapter = new CarArturAdapter(MyListActivity.this, R.layout.cars_adapter, finalData);
-                    //setListAdapter(arturAdapter);
-                    // For dropping a marker at a point on the Map
-                    for(int i=0;i<finalData.size();i++) {
-                        LatLng sydney = new LatLng(finalData.get(i).getLatitude(), finalData.get(i).getLongitude());
-
-                        googleMap.addMarker(new MarkerOptions().position(sydney).title(finalData.get(i).getModel()).snippet(finalData.get(i).getRegistrationNumber()));
-                    }
-                } else
-                    Toast.makeText(getContext(), "Error in GET cars ", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<List<Cars>> call, Throwable t) {
-                Toast.makeText(getContext(), "FAILURE Error in GET cars ", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override

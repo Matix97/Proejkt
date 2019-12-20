@@ -155,7 +155,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
                 Toast.makeText(getContext(), "Failure 2", Toast.LENGTH_LONG).show();
             }
         });
-       /* Toast.makeText(getContext(), "Response: "+ifResponseSuccessful, Toast.LENGTH_LONG).show(); //todo delete in final version
+        Toast.makeText(getContext(), "Response: "+ifResponseSuccessful, Toast.LENGTH_LONG).show(); //todo delete in final version
         if(ifResponseSuccessful) {
             Intent intent = new Intent(getContext(), RentedCarActivity.class);
             Bundle bundle = new Bundle();
@@ -165,7 +165,7 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
             intent.putExtras(bundle);
             //   Toast.makeText(getContext(), "ID: "+car.getId()+"\nModel: "+car.getModel()+"\nRegistration: "+car.getRegistrationNumber(), Toast.LENGTH_LONG).show();
             context.startActivity(intent);
-        }*/
+        }
 
     }
 }
