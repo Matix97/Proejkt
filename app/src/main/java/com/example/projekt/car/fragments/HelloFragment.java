@@ -1,5 +1,6 @@
 package com.example.projekt.car.fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,25 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.projekt.car.DTOs.Cars;
 import com.example.projekt.car.Exceptions.PersonDoesNotExist;
 import com.example.projekt.car.MyListActivity;
-import com.example.projekt.car.NfcActivity;
 import com.example.projekt.car.R;
-import com.example.projekt.car.Services.CarService;
-import com.example.projekt.car.Services.ServiceGenerator;
 import com.example.projekt.car.data.PeopleDataBase;
 import com.example.projekt.car.data.Person;
 
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class HelloFragment extends Fragment implements View.OnClickListener {
@@ -38,10 +30,10 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.hello_fragment, container, false);
 
-/*        ImageView imageView = view.findViewById(R.id.imageView2);
-        imageView.setImageResource(R.drawable.sample_face);*/
+        ImageView imageView = view.findViewById(R.id.imageView2);
+        imageView.setImageResource(R.drawable.sample_face);
 
-       /* TextView textView = view.findViewById(R.id.textView);
+        TextView textView = view.findViewById(R.id.textView);
         PeopleDataBase peopleDataBase = new PeopleDataBase();
         Person person = null;
         try {
@@ -49,7 +41,7 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
         } catch (PersonDoesNotExist personDoesNotExist) {
             personDoesNotExist.printStackTrace();
         }
-        // textView.setText("Welcome "+person.getFirstName());*/
+        // textView.setText("Welcome "+person.getFirstName());
         this.view = view;
         return view;
     }
@@ -97,12 +89,12 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
 
 
     private void newActivity() {
-        //  Intent intent = new Intent(getActivity(), MyListActivity.class);
-        //  Bundle bundle=new Bundle();
-        //  bundle.putString("idCar", "Audi");
-        //  intent.putExtras(bundle);
-        Intent intent = new Intent(getActivity(), NfcActivity.class);
-        startActivity(intent);
+        new AlertDialog.Builder(getContext())
+                .setTitle("INFO")
+                .setMessage("It's a feature... in the future")
+                .setNegativeButton(android.R.string.ok, null)
+                .show();
     }
+
 }
 

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.projekt.car.Exceptions.CarDoesNotExist;
 import com.example.projekt.car.R;
+import com.example.projekt.car.Services.ServiceGenerator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,23 +15,23 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class CarsDataBase {
-    private ArrayList<Car> carArrayList;
+    private static ArrayList<Car> carArrayList;
 
     void init(){
-        carArrayList.add(new Car(51.8745,19.363,false,54.0,"Seat Toledo",false,false,R.drawable.seat_toledo));
+        carArrayList.add(new Car(51.8745,19.363,true,54.0,"Seat Toledo",false,false,R.drawable.seat_toledo));
         carArrayList.add(new Car(51.77,19.48,false,50.0,"Audi",false,false,R.drawable.auto2));
-        carArrayList.add(new Car(51.78,19.44,false,69.0,"Jeep",false,false,R.drawable.jeap));
+        carArrayList.add(new Car(51.78,19.44,true,69.0,"Jeep",false,false,R.drawable.jeap));
         carArrayList.add(new Car(51.73,19.47,false,48.0,"Mercedes",false,false,R.drawable.mercedes));
-        carArrayList.add(new Car(1.0,62.0,false,55.0,"Fiat Tipo",false,false,R.drawable.fiat_tipo));
-        carArrayList.add(new Car(1.0,52.0,false,70.0,"Toyota Auris",false,false,R.drawable.toyota_auris));
-        carArrayList.add(new Car(1.0,62.0,false,20.5,"KIA Ceed GT",false,false,R.drawable.kia_ceed_gt));
-        carArrayList.add(new Car(1.0,62.0,false,54.0,"Seat Toledo2",false,false,R.drawable.seat_toledo));
-        carArrayList.add(new Car(1.0,42.0,false,50.0,"Audi2",false,false,R.drawable.auto2));
-        carArrayList.add(new Car(1.0,45.0,false,69.0,"Jeep2",false,false,R.drawable.jeap));
-        carArrayList.add(new Car(1.0,25.0,false,48.0,"Mercedes2",false,false,R.drawable.mercedes));
-        carArrayList.add(new Car(1.0,27.0,false,55.0,"Fiat Tipo2",false,false,R.drawable.fiat_tipo));
-        carArrayList.add(new Car(1.0,28.0,false,70.0,"Toyota Auris2",false,false,R.drawable.toyota_auris));
-        carArrayList.add(new Car(1.0,29.0,false,20.5,"KIA Ceed GT2",false,false,R.drawable.kia_ceed_gt));
+        carArrayList.add(new Car(51.739458,19.313909,false,55.0,"Fiat Tipo",false,false,R.drawable.fiat_tipo));
+        carArrayList.add(new Car(51.5745,19.11,false,70.0,"Toyota Auris",false,false,R.drawable.toyota_auris));
+        carArrayList.add(new Car(51.6745,19.852,false,20.5,"KIA Ceed GT",false,false,R.drawable.kia_ceed_gt));
+        carArrayList.add(new Car(51.4435,19.742,false,54.0,"Seat Toledo2",false,false,R.drawable.seat_toledo));
+        carArrayList.add(new Car(51.1335,19.246,false,50.0,"Audi2",false,false,R.drawable.auto2));
+        carArrayList.add(new Car(51.1421,19.846,false,69.0,"Jeep2",false,false,R.drawable.jeap));
+        carArrayList.add(new Car(51.5532,19.888,false,48.0,"Mercedes2",false,false,R.drawable.mercedes));
+        carArrayList.add(new Car(51.7989,19.945,false,55.0,"Fiat Tipo2",false,false,R.drawable.fiat_tipo));
+        carArrayList.add(new Car(51.9999,19.521,false,70.0,"Toyota Auris2",false,false,R.drawable.toyota_auris));
+        carArrayList.add(new Car(51.3246,19.537,false,20.5,"KIA Ceed GT2",false,false,R.drawable.kia_ceed_gt));
     }
 
     public CarsDataBase(ArrayList<Car> carArrayList) {
@@ -96,6 +97,15 @@ public class CarsDataBase {
     }
 
     public ArrayList<Car> getCarArrayList() {
-        return carArrayList;
+        if(ServiceGenerator.role.equals("admin"))
+            return carArrayList;
+        else{
+            ArrayList<Car> c=new ArrayList<>();
+            for (Car s: carArrayList) {
+                if(s.isTaken.equals(false))
+                    c.add(s);
+            }
+            return c;
+        }
     }
 }

@@ -10,6 +10,11 @@ public class Person implements Serializable {
     private String password;
     private String lastUsedCar;
     private String token;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
 
     public String getToken() {
         return token;
@@ -25,11 +30,12 @@ public class Person implements Serializable {
 
 
 
-    public Person(String firstName, String secondName, String email, String password) {
+    public Person(String firstName, String secondName, String email, String password,String role) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
         this.password = password;
+        this.role =role;
     }
 
     public String getLastUsedCar() {

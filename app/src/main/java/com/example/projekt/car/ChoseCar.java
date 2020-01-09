@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.projekt.car.Exceptions.CarDoesNotExist;
@@ -18,7 +19,7 @@ public class ChoseCar extends FragmentActivity {
         setContentView(R.layout.chose_car_layout);
 
         String idCar = getIntent().getExtras().getString("idCar");
-
+        ImageView imageView = this.findViewById(R.id.map);
 
         TextView textViewName = this.findViewById(R.id.chose_car_textview);
 
@@ -32,12 +33,25 @@ public class ChoseCar extends FragmentActivity {
         }
         Button tank =this.findViewById(R.id.tankowanie);
         Car finalCar = car;
+        imageView.setImageResource(car.getImage());
         tank.setOnClickListener(v->{
             Intent intent = new Intent(ChoseCar.this, RentedCarActivity.class);
             Bundle bundle=new Bundle();
             bundle.putString("idCar", finalCar.getCarsID());
             bundle.putString("registrationNumber",finalCar.getCarsID());
             bundle.putString("model",finalCar.getCarsID());
+            bundle.putString("what","tank");
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
+        Button fault=this.findViewById(R.id.usterka);
+        fault.setOnClickListener(v->{
+            Intent intent = new Intent(ChoseCar.this, RentedCarActivity.class);
+            Bundle bundle=new Bundle();
+            bundle.putString("idCar", finalCar.getCarsID());
+            bundle.putString("registrationNumber",finalCar.getCarsID());
+            bundle.putString("model",finalCar.getCarsID());
+            bundle.putString("what","fault");
             intent.putExtras(bundle);
             startActivity(intent);
         });

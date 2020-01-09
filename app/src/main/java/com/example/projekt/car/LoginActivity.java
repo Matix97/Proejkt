@@ -127,7 +127,7 @@ public class LoginActivity extends Activity {
 //                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        peopleDataBase.addPerson(new Person("name","surname", ed1.getText().toString(),ed2.getText().toString()));
+        peopleDataBase.addPerson(new Person( ed1.getText().toString(),"surname", ed1.getText().toString(),ed2.getText().toString(),"normal"));
         Toast.makeText(LoginActivity.this, "register successful, try to login ", Toast.LENGTH_SHORT).show();
     }
 
@@ -161,6 +161,7 @@ public class LoginActivity extends Activity {
             if (peopleDataBase.isExist(ed1.getText().toString())) {
                 if (peopleDataBase.getPerson(ed1.getText().toString()).getPassword().equals(ed2.getText().toString())) {
                     loginOK = true;
+                    ServiceGenerator.role=peopleDataBase.getPerson(ed1.getText().toString()).getRole();
                     break;
                 }
             }

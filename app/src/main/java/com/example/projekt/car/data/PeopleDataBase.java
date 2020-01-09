@@ -11,15 +11,15 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class PeopleDataBase {
-    private ArrayList<Person> personArrayList;
+    private static ArrayList<Person> personArrayList;
 
     private void  init(){
-        personArrayList.add(new Person("Adam","Kowalski","adamKowalski@gmail.com","admin"));
-        personArrayList.add(new Person("Michał","Kowalski","michalKowalski@gmail.com","admin"));
-        personArrayList.add(new Person("Mateusz","Kowalski","mateuszKowalski@gmail.com","admin"));
-        personArrayList.add(new Person("Szymon","Kowalski","szymonKowalski@gmail.com","admin"));
-        personArrayList.add(new Person("Artur","Kowalski","arturKowalski@gmail.com","admin"));
-        personArrayList.add(new Person("admin","admin","admin","admin"));
+        personArrayList.add(new Person("Adam","Kowalski","adamKowalski@gmail.com","admin","normal"));
+        personArrayList.add(new Person("Michał","Kowalski","michalKowalski@gmail.com","admin","normal"));
+        personArrayList.add(new Person("Mateusz","Kowalski","mateuszKowalski@gmail.com","admin","normal"));
+        personArrayList.add(new Person("Szymon","Kowalski","szymonKowalski@gmail.com","admin","normal"));
+        personArrayList.add(new Person("Artur","Kowalski","arturKowalski@gmail.com","admin","normal"));
+        personArrayList.add(new Person("admin","admin","admin","admin","admin"));
 
     }
     public PeopleDataBase(ArrayList<Person> personArrayList) {

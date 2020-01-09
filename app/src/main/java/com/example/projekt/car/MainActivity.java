@@ -1,6 +1,7 @@
 package com.example.projekt.car;
 
 
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,11 +18,6 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.projekt.car.DTOs.Cars;
-import com.example.projekt.car.Others.StringUtils;
-import com.example.projekt.car.Services.CarService;
-import com.example.projekt.car.Services.ServiceGenerator;
 import com.example.projekt.car.fragments.HelloFragment;
 import com.example.projekt.car.fragments.MyListFragment;
 
@@ -99,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("INFO")
+                        .setMessage("You needn't setup anything\nEverything is automated")
+                    .setNegativeButton(android.R.string.ok, null)
+                    .show();
             return true;
         }
 

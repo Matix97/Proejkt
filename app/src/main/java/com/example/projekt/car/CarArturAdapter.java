@@ -122,8 +122,14 @@ public class CarArturAdapter extends ArrayAdapter<Cars> {
             return;
         }
         Location location = locationManager.getLastKnownLocation(theBestSupplier);
-        longitiude = location.getLongitude();
-        latitiude = location.getLatitude();
+        if(location==null){
+            longitiude = 19.455916;
+            latitiude = 51.747085;
+        }else{
+            longitiude = location.getLongitude();
+            latitiude = location.getLatitude();
+        }
+
 
         ////////////////////////////////////
 

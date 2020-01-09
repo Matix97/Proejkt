@@ -51,6 +51,7 @@ public class RentedCarActivity extends AppCompatActivity {
         modelText = findViewById(R.id.modelText);
         fuelingPrice=findViewById(R.id.fuelingPrice);
 
+
         isCritical.setOnCheckedChangeListener((buttonView, isChecked) -> isCriticalAnswer = isChecked);
         fuelButton.setOnClickListener(v -> fueling(v));
         faultButton.setOnClickListener(v -> fault(v));
@@ -63,6 +64,22 @@ public class RentedCarActivity extends AppCompatActivity {
         // Toast.makeText(this, "ID: "+carID+"\nModel: "+mod+"\nRegistration: "+reg, Toast.LENGTH_LONG).show();
         registrationText.setText("" + reg);
         modelText.setText("" + mod);
+        if(bundle.getString("what").equals("tank")){
+            fuelAmount.setEnabled(true);
+            faultDescription.setEnabled(false);
+            fuelButton.setEnabled(true);
+            faultButton.setEnabled(false);
+            isCritical.setEnabled(false);
+            fuelingPrice.setEnabled(true);
+        }
+        if(bundle.getString("what").equals("fault")){
+            fuelAmount.setEnabled(false);
+            faultDescription.setEnabled(true);
+            fuelButton.setEnabled(false);
+            faultButton.setEnabled(true);
+            isCritical.setEnabled(true);
+            fuelingPrice.setEnabled(false);
+        }
 
 
     }

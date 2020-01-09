@@ -5,7 +5,7 @@
     <string name="fuel">Fuel</string>
     <string name="CurrentCar">CurrentCar</string>
     <string name="rentCar">Rent</string>
-    <string name="NFCButton">Rent</string>
+    <string name="NFCButton">Scan QR in car</string>
 
     <string name="carID">car</string>
     <string name="todo">TODO</string>

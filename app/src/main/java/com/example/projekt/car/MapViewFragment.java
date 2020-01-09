@@ -114,8 +114,15 @@ public class MapViewFragment extends Fragment implements LocationSource.OnLocati
                     return;
                 }
                 Location location = locationManager.getLastKnownLocation(theBestSupplier);
+                LatLng myLocation;
+if(location==null){
+    myLocation = new LatLng( 51.747085, 19.455916);
 
-                LatLng myLocation = new LatLng( location.getLatitude(),  location.getLongitude());
+}
+else{
+    myLocation = new LatLng( location.getLatitude(),  location.getLongitude());
+}
+
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                /* CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
