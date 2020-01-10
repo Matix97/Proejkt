@@ -1,9 +1,10 @@
 package com.example.projekt.car.DTOs;
 
-import java.util.Date;
-
 public class BearerToken {
     private int userID;
+    private String expiresAt;
+    private String string;
+    private int id;
 
     public int getUserID() {
         return userID;
@@ -36,8 +37,4 @@ public class BearerToken {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String expiresAt;
-    private String string;
-    private int id;
 }

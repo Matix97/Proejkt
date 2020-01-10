@@ -22,26 +22,24 @@ import com.example.projekt.car.DTOs.Fault;
 import com.example.projekt.car.DTOs.Fuel;
 import com.example.projekt.car.DTOs.TakeCar;
 import com.example.projekt.car.Services.CarService;
-import com.example.projekt.car.Services.NotificationService;
 import com.example.projekt.car.Services.ServiceGenerator;
 import com.example.projekt.car.fragments.HelloFragment;
 
 import java.util.Date;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RentedCarActivity extends AppCompatActivity {
 
+    public static int j = 0;
     private TextView fuelAmount, faultDescription, registrationText, modelText, fuelingPrice;
     private Button fuelButton, faultButton;
     private Switch isCritical;
     private CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
     private int carID;
     private boolean isCriticalAnswer;
-
     private String CHANNEL_ID = "2";
 
     @Override
@@ -56,7 +54,7 @@ public class RentedCarActivity extends AppCompatActivity {
         isCritical = findViewById(R.id.isCritical);
         registrationText = findViewById(R.id.registrationText);
         modelText = findViewById(R.id.modelText);
-        fuelingPrice=findViewById(R.id.fuelingPrice);
+        fuelingPrice = findViewById(R.id.fuelingPrice);
 
 
         isCritical.setOnCheckedChangeListener((buttonView, isChecked) -> isCriticalAnswer = isChecked);
@@ -65,13 +63,13 @@ public class RentedCarActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-       // carID = bundle.getString("carID");
+        // carID = bundle.getString("carID");
         String reg = bundle.getString("registrationNumber");
         String mod = bundle.getString("model");
         // Toast.makeText(this, "ID: "+carID+"\nModel: "+mod+"\nRegistration: "+reg, Toast.LENGTH_LONG).show();
         registrationText.setText("" + reg);
         modelText.setText("" + mod);
-        if(bundle.getString("what").equals("tank")){
+        if (bundle.getString("what").equals("tank")) {
             fuelAmount.setEnabled(true);
             faultDescription.setEnabled(false);
             fuelButton.setEnabled(true);
@@ -79,7 +77,7 @@ public class RentedCarActivity extends AppCompatActivity {
             isCritical.setEnabled(false);
             fuelingPrice.setEnabled(true);
         }
-        if(bundle.getString("what").equals("fault")){
+        if (bundle.getString("what").equals("fault")) {
             fuelAmount.setEnabled(false);
             faultDescription.setEnabled(true);
             fuelButton.setEnabled(false);
@@ -94,7 +92,7 @@ public class RentedCarActivity extends AppCompatActivity {
     private void fueling(View v) {
         try {
             Double fuel = Double.parseDouble(fuelAmount.getText().toString());
-            Double price=Double.parseDouble(fuelingPrice.getText().toString());
+            Double price = Double.parseDouble(fuelingPrice.getText().toString());
             //Toast.makeText(this, String.valueOf(fuel), Toast.LENGTH_SHORT).show();//todo remove-only tetsing
             //////////////////////////////////////////////////////get location and time
             double longitiude;
@@ -119,7 +117,7 @@ public class RentedCarActivity extends AppCompatActivity {
             Location location = locationManager.getLastKnownLocation(theBestSupplier);
             longitiude = location.getLongitude();
             latitiude = location.getLatitude();
-            Call<Void> call = carService.fuel(new Fuel(carID, fuel, new Date().getTime(),latitiude,longitiude,price));
+            Call<Void> call = carService.fuel(new Fuel(carID, fuel, new Date().getTime(), latitiude, longitiude, price));
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
@@ -139,7 +137,7 @@ public class RentedCarActivity extends AppCompatActivity {
             Toast.makeText(this, "some error", Toast.LENGTH_SHORT).show();
         }
     }
-public static int j=0;
+
     private void fault(View v) {
         String descripiton = " ";
 
@@ -178,6 +176,7 @@ public static int j=0;
             }
         });
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -215,10 +214,10 @@ public static int j=0;
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                   // ifResponseSuccessful=true;
+                    // ifResponseSuccessful=true;
                     //Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(RentedCarActivity.this, "Failure in getting car\n(This shouldn't be open)\n"+response.message(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(RentedCarActivity.this, "Failure in getting car\n(This shouldn't be open)\n" + response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 

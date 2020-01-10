@@ -8,9 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.projekt.car.DTOs.BearerToken;
-import com.example.projekt.car.Exceptions.PersonDoesNotExist;
-import com.example.projekt.car.DTOs.Login;
+
 import com.example.projekt.car.DTOs.Register;
 import com.example.projekt.car.Services.NotificationService;
 import com.example.projekt.car.Services.ServiceGenerator;
@@ -100,11 +98,9 @@ public class LoginActivity extends Activity {
         b2 = findViewById(R.id.button2);
 
         b1.setOnClickListener(v -> {
-            try {
+
                 tryLogin();
-            } catch (PersonDoesNotExist personDoesNotExist) {
-                personDoesNotExist.printStackTrace();
-            }
+
         });
         b2.setOnClickListener(v -> tryRegister());
     }
@@ -132,8 +128,8 @@ public class LoginActivity extends Activity {
         Toast.makeText(LoginActivity.this, "register successful, try to login ", Toast.LENGTH_SHORT).show();
     }
 
-    private void tryLogin() throws PersonDoesNotExist {
-
+    private void tryLogin()  {
+//GDY BACK DZIALA NORMALNIE TO ODKOMNTUEJ
 //        Login login = new Login(ed1.getText().toString(), ed2.getText().toString());
 //
 //        Call<BearerToken> call = userService.login(Credentials.basic(ed1.getText().toString(), ed2.getText().toString()));

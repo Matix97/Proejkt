@@ -2,7 +2,7 @@ package com.example.projekt.car.data;
 
 import java.io.Serializable;
 
-//Car: position, isTaken, fuel, Id, usteka(TODO - pozdielic na proste/krytyczne), link do jsonow o trasie
+
 public class Car implements Serializable {
     Double xCoordinate;
     Double yCoordinate;
@@ -13,10 +13,6 @@ public class Car implements Serializable {
     Boolean lightFault;
     int image;
 
-    public int getImage() {
-        return image;
-    }
-
     public Car(Double xCoordinate, Double yCoordinate, Boolean isTaken, Double fuel, String carsID, Boolean criticalFault, Boolean lightFault, int image) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
@@ -25,7 +21,11 @@ public class Car implements Serializable {
         this.carsID = carsID;
         this.criticalFault = criticalFault;
         this.lightFault = lightFault;
-        this.image=image;
+        this.image = image;
+    }
+
+    public int getImage() {
+        return image;
     }
 
     public Double getxCoordinate() {

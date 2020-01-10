@@ -7,19 +7,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.projekt.car.CarArturAdapter;
-//import com.example.projekt.car.CarListAdapter;
-
 import com.example.projekt.car.CarListAdapter;
 import com.example.projekt.car.DTOs.Cars;
-import com.example.projekt.car.MyListActivity;
 import com.example.projekt.car.R;
 import com.example.projekt.car.Services.CarService;
 import com.example.projekt.car.Services.ServiceGenerator;
 import com.example.projekt.car.data.Car;
 import com.example.projekt.car.data.CarsDataBase;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +22,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//import com.example.projekt.car.CarListAdapter;
+
 
 public class MyListFragment extends android.support.v4.app.ListFragment {
 
-    private ArrayList<Car> carArrayList = new ArrayList<>();
-
     List<Cars> data = new ArrayList<>();
     List<Cars> finalData = new ArrayList<>();
+    private ArrayList<Car> carArrayList = new ArrayList<>();
+
+    public static MyListFragment newInstance() {
+        MyListFragment fragment = new MyListFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,15 +50,9 @@ public class MyListFragment extends android.support.v4.app.ListFragment {
         carArrayList = new CarsDataBase().getCarArrayList();
         CarListAdapter adapter1 = new CarListAdapter(getActivity(), R.layout.car_item_list_adapter, carArrayList);
         setListAdapter(adapter1);
-       // downloadCars();
+        // downloadCars();
     }
 
-    public static MyListFragment newInstance() {
-        MyListFragment fragment = new MyListFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
     void downloadCars() {
         CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
         Call<List<Cars>> call = carService.getCars();

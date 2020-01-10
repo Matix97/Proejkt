@@ -12,6 +12,14 @@ public class Person implements Serializable {
     private String token;
     private String role;
 
+    public Person(String firstName, String secondName, String email, String password, String role) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getRole() {
         return role;
     }
@@ -26,16 +34,6 @@ public class Person implements Serializable {
 
     public String getEmail() {
         return email;
-    }
-
-
-
-    public Person(String firstName, String secondName, String email, String password,String role) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.email = email;
-        this.password = password;
-        this.role =role;
     }
 
     public String getLastUsedCar() {

@@ -42,11 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Bundle bundle = new Bundle();
 
     private ViewPager mViewPager;
-    //begin todo THIS is conected with google maps-testing
-   /* static final LatLng HAMBURG = new LatLng(53.558, 9.927);
-    static final LatLng KIEL = new LatLng(53.551, 9.993);
-    private GoogleMap map;*/
-    // end todo THIS is conected with google maps-testing
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +60,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
-//begin todo THIS is conected with google maps-testing
-      /*  map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();//implementation 'com.google.android.gms:play-services-location:8.4.0' adding in gradle
-        if (map!=null){
-            Marker hamburg = map.addMarker(new MarkerOptions().position(HAMBURG)
-                    .title("Hamburg"));
-            Marker kiel = map.addMarker(new MarkerOptions()
-                    .position(KIEL)
-                    .title("Kiel")
-                    .snippet("Kiel is cool")
-                    .icon(BitmapDescriptorFactory
-                            .fromResource(R.drawable.logo)));
-        }*/
-        // end todo THIS is conected with google maps-testing
-//        new WebServiceHandler()
-//                .execute();             //downloading date in background
+
 
     }
 
@@ -163,92 +145,5 @@ public class MainActivity extends AppCompatActivity {
             return 3;
         }
     }
-  /*  private class WebServiceHandler extends AsyncTask<Void, Void, List<Cars>> {
 
-        // okienko dialogowe, które każe użytkownikowi czekać
-        private ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-
-
-        // metoda wykonywana jest zaraz przed główną operacją (doInBackground())
-        // mamy w niej dostęp do elementów UI
-        @Override
-        protected void onPreExecute() {
-            // wyświetlamy okienko dialogowe każące czekać
-            dialog.setMessage("Czekaj...");
-            dialog.show();
-        }
-
-        // główna operacja, która wykona się w osobnym wątku
-        // nie ma w niej dostępu do elementów UI
-        @Override
-        protected List<Cars> doInBackground(Void... voids) {
-
-            CarService carService =ServiceGenerator.createAuthorizedService(CarService.class);
-            Call<List<Cars>> call=carService.getCars();
-            call.enqueue(new Callback<List<Cars>>() {
-                @Override
-                public void onResponse(Call<List<Cars>> call, Response<List<Cars>> response) {
-                    if(response.isSuccessful()){
-                        Toast.makeText(MainActivity.this,response.body().get(0).getModel(),Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                        Toast.makeText(MainActivity.this,"Error in GET cars ",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Call<List<Cars>> call, Throwable t) {
-                    Toast.makeText(MainActivity.this,"FAILURE Error in GET cars ",Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            return null;
-        }
-
-        // metoda wykonuje się po zakończeniu metody głównej,
-        // której wynik będzie przekazany;
-        // w tej metodzie mamy dostęp do UI
-        @Override
-        protected void onPostExecute(List<Cars> result) {
-
-            // chowamy okno dialogowe
-            dialog.dismiss();
-
-            try {
-                // reprezentacja obiektu JSON w Javie
-               // JSONObject json = new JSONObject(result);
-
-                // pobranie pól obiektu JSON i wyświetlenie ich na ekranie
-              //  ((TextView) findViewById(R.id.response_id)).setText("id: "
-                //        + json.optString("id"));
-                //((TextView) findViewById(R.id.response_name)).setText("name: "
-                  //      + json.optString("name"));
-
-            } catch (Exception e) {
-                // obsłuż wyjątek
-                Log.d(MainActivity.class.getSimpleName(), e.toString());
-            }
-        }
-
-    }
-    // konwersja z InputStream do String
-    public static String streamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line = null;
-
-        try {
-
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line + "\n");
-            }
-
-            reader.close();
-
-        } catch (IOException e) {
-            // obsłuż wyjątek
-            Log.d(MainActivity.class.getSimpleName(), e.toString());
-        }
-
-        return stringBuilder.toString();
-    }*/
 }

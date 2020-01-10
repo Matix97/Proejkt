@@ -35,22 +35,14 @@ public class NotificationService extends Service {
         return null;
     }
 
-//    @Override
-//    public void onTaskRemoved(Intent rootIntent) {
-//        Intent intent = new Intent("com.android.ServiceStopped");
-//        sendBroadcast(intent);
-//    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //   startForeground(CHANNEL_ID,"jh");
+
         Bundle b = intent.getExtras();
         token = (String) b.get("token");
 
-        //startForeground(CHANNEL_ID,builder);
 
         TimerTask doAsynchronousTask;
-        //     final Handler handler = new Handler();
         Timer timer = new Timer();
 
         doAsynchronousTask = new TimerTask() {
@@ -58,9 +50,9 @@ public class NotificationService extends Service {
             @Override
             public void run() {
                 System.out.println("--------------------------------TIMER---------------------------" + token);
-                UserService userService = ServiceGenerator.createAuthorizedService(UserService.class);
+                CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
 
-                Call<List<Fault>> call = userService.getFault();
+                Call<List<Fault>> call = carService.getFault();
                 call.enqueue(new Callback<List<Fault>>() {
                     @Override
                     public void onResponse(Call<List<Fault>> call, Response<List<Fault>> response) {
@@ -98,19 +90,5 @@ public class NotificationService extends Service {
         return Service.START_STICKY;
     }
 
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
+
 }

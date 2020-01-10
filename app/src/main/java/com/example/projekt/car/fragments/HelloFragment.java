@@ -1,30 +1,28 @@
 package com.example.projekt.car.fragments;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.projekt.car.Exceptions.PersonDoesNotExist;
-import com.example.projekt.car.MyListActivity;
 import com.example.projekt.car.R;
 import com.example.projekt.car.data.PeopleDataBase;
-import com.example.projekt.car.data.Person;
-
-
 
 
 public class HelloFragment extends Fragment implements View.OnClickListener {
     private View view;
     private Button nfc;
+
+    public static HelloFragment newInstance() {
+        HelloFragment fragment = new HelloFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,15 +31,9 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
         ImageView imageView = view.findViewById(R.id.imageView2);
         imageView.setImageResource(R.drawable.sample_face);
 
-        TextView textView = view.findViewById(R.id.textView);
+
         PeopleDataBase peopleDataBase = new PeopleDataBase();
-        Person person = null;
-        try {
-            person = peopleDataBase.getPerson((String) getArguments().get("dane"));
-        } catch (PersonDoesNotExist personDoesNotExist) {
-            personDoesNotExist.printStackTrace();
-        }
-        // textView.setText("Welcome "+person.getFirstName());
+
         this.view = view;
         return view;
     }
@@ -52,14 +44,6 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
         nfc = view.findViewById(R.id.nfcButton);
         nfc.setOnClickListener(this::onClick);
 
-    }
-
-
-    public static HelloFragment newInstance() {
-        HelloFragment fragment = new HelloFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override//todo Testing get cars-- working correctly
@@ -85,7 +69,6 @@ public class HelloFragment extends Fragment implements View.OnClickListener {
         newActivity();
         //Toast.makeText(getActivity(),"NFC hear ",Toast.LENGTH_SHORT).show();
     }
-
 
 
     private void newActivity() {

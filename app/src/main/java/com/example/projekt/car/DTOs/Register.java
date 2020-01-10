@@ -8,6 +8,14 @@ public class Register implements Serializable {
     String password;
     String verifyPassword;
 
+    public Register(String name, String email, String password, String verifyPassword) {
+
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.verifyPassword = verifyPassword;
+    }
+
     public String getName() {
         return name;
     }
@@ -37,14 +45,6 @@ public class Register implements Serializable {
     }
 
     public void setVerifyPassword(String verifyPassword) {
-        this.verifyPassword = verifyPassword;
-    }
-
-    public Register(String name, String email, String password, String verifyPassword) {
-
-        this.name = name;
-        this.email = email;
-        this.password = password;
         this.verifyPassword = verifyPassword;
     }
 }

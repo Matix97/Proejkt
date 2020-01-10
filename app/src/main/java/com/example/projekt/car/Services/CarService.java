@@ -23,5 +23,7 @@ public interface CarService {
     Call<Void> fuel(@Body Fuel fuel);
     @POST("faults")
     Call<Void> reportFault(@Body Fault fault );
+    @GET("faults")
+    Call<List<Fault>> getFault();
 
 }

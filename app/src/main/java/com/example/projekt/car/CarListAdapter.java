@@ -12,8 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.projekt.car.data.Car;
 
+import com.example.projekt.car.data.Car;
 
 import java.util.List;
 

@@ -17,5 +17,4 @@ public interface UserService {
     @POST("login")
     Call<BearerToken> login(@Header("Authorization") String basicAuthCredentials);
 
-    Call<List<Fault>> getFault();
 }

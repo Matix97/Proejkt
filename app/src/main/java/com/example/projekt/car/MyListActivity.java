@@ -26,20 +26,22 @@ import static android.content.ContentValues.TAG;
 
 public class MyListActivity extends ListActivity {
 
+    private static final int REQ_PERMISSION = 0;
     List<Cars> data = new ArrayList<>();
     List<Cars> finalData = new ArrayList<>();
     private GoogleMap googleMap;
-    private static final int REQ_PERMISSION = 0;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         downloadCars();
-        if (checkPermission()){}
-          //  googleMap.setMyLocationEnabled(true);
+        if (checkPermission()) {
+        }
+        //  googleMap.setMyLocationEnabled(true);
         else askPermission();
     }
+
     // Check for permission to access Location
     private boolean checkPermission() {
         Log.d(TAG, "checkPermission()");
@@ -52,7 +54,7 @@ public class MyListActivity extends ListActivity {
     private void askPermission() {
         Log.d(TAG, "askPermission()");
         ActivityCompat.requestPermissions(
-               this,
+                this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 REQ_PERMISSION
         );
@@ -67,8 +69,9 @@ public class MyListActivity extends ListActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission granted
-                    if (checkPermission()){}
-                      //  googleMap.setMyLocationEnabled(true);
+                    if (checkPermission()) {
+                    }
+                    //  googleMap.setMyLocationEnabled(true);
 
                 } else {
                     // Permission denied
