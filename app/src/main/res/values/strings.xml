@@ -6,6 +6,8 @@
     <string name="CurrentCar">CurrentCar</string>
     <string name="rentCar">Rent</string>
     <string name="NFCButton">Scan QR in car</string>
+    <string name="channel_name">test</string>
+    <string name="channel_description">opis testu asdasdasd</string>
 
     <string name="carID">car</string>
     <string name="todo">TODO</string>

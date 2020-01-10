@@ -1,6 +1,7 @@
 package com.example.projekt.car;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -8,6 +9,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +22,9 @@ import com.example.projekt.car.DTOs.Fault;
 import com.example.projekt.car.DTOs.Fuel;
 import com.example.projekt.car.DTOs.TakeCar;
 import com.example.projekt.car.Services.CarService;
+import com.example.projekt.car.Services.NotificationService;
 import com.example.projekt.car.Services.ServiceGenerator;
+import com.example.projekt.car.fragments.HelloFragment;
 
 import java.util.Date;
 
@@ -36,6 +41,8 @@ public class RentedCarActivity extends AppCompatActivity {
     private CarService carService = ServiceGenerator.createAuthorizedService(CarService.class);
     private int carID;
     private boolean isCriticalAnswer;
+
+    private String CHANNEL_ID = "2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,13 +139,27 @@ public class RentedCarActivity extends AppCompatActivity {
             Toast.makeText(this, "some error", Toast.LENGTH_SHORT).show();
         }
     }
-
+public static int j=0;
     private void fault(View v) {
         String descripiton = " ";
 
         descripiton = faultDescription.getText().toString();
         // descripiton= String.valueOf(isCriticalAnswer);
         //  Toast.makeText(this, descripiton, Toast.LENGTH_SHORT).show();
+        if (ServiceGenerator.role.equals("admin")) {
+            Intent i = new Intent(RentedCarActivity.this, HelloFragment.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(RentedCarActivity.this, 0, i, 0);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(RentedCarActivity.this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.icon)
+                    .setContentTitle("Cars")
+                    .setContentText(descripiton)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(RentedCarActivity.this);
+            notificationManager.notify(++j, builder.build());
+        }
         Call<Void> call = carService.reportFault(new Fault(carID, isCriticalAnswer, descripiton, new Date().getTime()));
         call.enqueue(new Callback<Void>() {
             @Override

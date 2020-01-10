@@ -12,6 +12,7 @@ import com.example.projekt.car.DTOs.BearerToken;
 import com.example.projekt.car.Exceptions.PersonDoesNotExist;
 import com.example.projekt.car.DTOs.Login;
 import com.example.projekt.car.DTOs.Register;
+import com.example.projekt.car.Services.NotificationService;
 import com.example.projekt.car.Services.ServiceGenerator;
 import com.example.projekt.car.Services.UserService;
 import com.example.projekt.car.data.PeopleDataBase;
@@ -168,6 +169,12 @@ public class LoginActivity extends Activity {
         }
 
         if (loginOK) {
+            if(ServiceGenerator.role.equals("admin")){
+                Intent i= new Intent(LoginActivity.this, NotificationService.class);
+                i.putExtra("token",ServiceGenerator.bearerToken);
+                LoginActivity.this.startService(i);
+            }
+
             newActivity();
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), "You haven't account or password is incorrect", Toast.LENGTH_LONG);
